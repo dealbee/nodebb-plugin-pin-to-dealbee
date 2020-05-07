@@ -1,17 +1,26 @@
-# Quickstart Plugin for NodeBB
+# Plugin chức năng chọn một bài viết lên trang chủ Dealbee
 
-A starter kit for quickly creating NodeBB plugins. Comes with a pre-setup LESS file, server side JS script with an `action:app.load` hook, and a client-side script. Most plugins need at least one of the above, so this ought to save you some time. For a full list of hooks have a look at our [wiki page](https://github.com/NodeBB/NodeBB/wiki/Hooks), and for more information about creating plugins please visit our [documentation portal](https://docs.nodebb.org/).
+Plugin thêm chức năng (cụ thể là một butotn) giúp editor chọn lựa bài post lên trang chủ dealbee
 
-Fork this or copy it, and using your favourite text editor find and replace all instances of `nodebb-plugin-pin-to-dealbee` with `nodebb-plugin-your-plugins-name`. Change the author's name in the LICENSE and package.json files.
+## Dữ liệu về sơ đồ bố trí bài viết trên trang chủ Dealbee
 
-## Hello World
+Vì dữ liệu về sơ đồ bố trí bài viết trên trang chủ Dealbee là không cố định, vì vậy dữ liệu này được lưu trong file [positionData](/lib/positionData.js)
 
-Really simple, just edit `static/lib/main.js` and paste in `console.log('hello world');`, and that's it!
+Sơ đồ bài viết trong dữ liệu mẫu đang được gom nhóm thành loại (type) và ví trí (position).
+Nói một cách dễ hiểu, mỗi loại sẽ có nhiều vị trí.
+Cấu trúc dữ liệu là một dữ liệu kiểu json. Sơ đồ bên dưới minh họa cấu trúc dữ liệu:
 
-## Installation
-
-    npm install nodebb-plugin-pin-to-dealbee
+## Lưu trữ ở cơ sở dữ liệu
+Mỗi vị trí lưu trữ bài viết sẽ có key phân biệt để lưu dưới cơ sở dữ liệu của NodeBB, đi kèm là thông tin id (tid) của bài viết được gán vào vị trí đó.
+Qui tắc đặt tên key của một vị trí: `pindealbee:{type-id}:{position-id}` (với type-id và position-id được lưu trữ trong file position.js)
+Ví dụ:
+_id: ObjectId("5eb432a1389e5c95d8cbdc8f")
+_key: pindealbee:type1:5
+tid: 3
 
 ## Screenshots
+### Vị trí button Pin
+![Button Postion](screenshots/button-position.png?raw=true)
 
-Don't forget to add screenshots!
+### Giao diện người dùng để chọn vị trí (demo)
+![Button Postion](screenshots/pin-preview.png?raw=true)
