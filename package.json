@@ -1,0 +1,76 @@
+{
+  "_from": "nodebb-plugin-pin-to-dealbee",
+  "_id": "nodebb-plugin-pin-to-dealbee@0.3.1",
+  "_inBundle": false,
+  "_integrity": "sha512-rFfLiP+glzbQ+5vtxs+52CtU1Jv39BX6WuBsr0nuCGeuQ4v7HBlqIjeOAInG8svkNycW9eK7dqhGWsfj1ZigjA==",
+  "_location": "/nodebb-plugin-pin-to-dealbee",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "nodebb-plugin-pin-to-dealbee",
+    "name": "nodebb-plugin-pin-to-dealbee",
+    "escapedName": "nodebb-plugin-pin-to-dealbee",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/nodebb-plugin-pin-to-dealbee/-/nodebb-plugin-pin-to-dealbee-0.3.1.tgz",
+  "_shasum": "2fb50df8147cf18588baf9a30cc6b9f5fc444fe6",
+  "_spec": "nodebb-plugin-pin-to-dealbee",
+  "_where": "D:\\ĐẠI HỌC\\NĂM 4\\HK2\\NodeBB\\nodebb_group\\NodeBB",
+  "author": {
+    "name": "psychobunny (edited by lamcuongdat)",
+    "email": "lam.cuong.dat@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/psychobunny/nodebb-plugin-pin-to-dealbee/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A plugin to add function pinning deal to dealbee",
+  "devDependencies": {
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-angular": "^7.1.2",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "husky": "^2.4.0",
+    "lint-staged": "^8.2.0"
+  },
+  "homepage": "https://github.com/psychobunny/nodebb-plugin-pin-to-dealbee#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "quickstart",
+    "shell",
+    "dealbee"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "main": "library.js",
+  "name": "nodebb-plugin-pin-to-dealbee",
+  "nbbpm": {
+    "compatibility": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psychobunny/nodebb-plugin-pin-to-dealbee.git"
+  },
+  "version": "0.1.1"
+}
