@@ -14,10 +14,7 @@ Cấu trúc dữ liệu là một dữ liệu kiểu json. Sơ đồ bên dướ
 Mỗi vị trí lưu trữ bài viết sẽ có key phân biệt để lưu dưới cơ sở dữ liệu của NodeBB, đi kèm là thông tin id (tid) của bài viết được gán vào vị trí đó.
 Qui tắc đặt tên key của một vị trí: `pindealbee:{type-id}:{position-id}` (với type-id và position-id được lưu trữ trong file position.js)
 
-Ví dụ:
-_id: ObjectId("5eb432a1389e5c95d8cbdc8f")
-_key: pindealbee:type1:5
-tid: 3
+Ví dụ:</br>_id: ObjectId("5eb432a1389e5c95d8cbdc8f")</br>_key: pindealbee:type1:5</br>tid: 3
 
 ## Screenshots
 ### Vị trí button Pin
