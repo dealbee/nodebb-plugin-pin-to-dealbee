@@ -67,7 +67,7 @@
     "type": "git",
     "url": "git+https://github.com/dealbee/nodebb-plugin-pin-to-dealbee"
   },
-  "version": "0.1.1",
+  "version": "0.1.2",
   "directories": {
     "lib": "lib"
   },

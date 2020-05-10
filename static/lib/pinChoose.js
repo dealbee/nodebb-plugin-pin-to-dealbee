@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 $(window).on('action:ajaxify.end', function (event, data) {
 	console.log(data);
-	if (data.tp_url == "topic");
+	if (data.tp_url == 'topic');
 	{
 		var headerContainer = $('.thread-tools').parent();
 		var buttonPin = $('<button id="buttonPin" class="btn btn-success">Pin to Dealbee</button>');
@@ -20,42 +20,39 @@ $(window).on('action:ajaxify.end', function (event, data) {
 	}
 	$('button#buttonPin').on('click', function (e) {
 		var pinModal = $('#pinChoose');
-		if (!pinModal[0]) {//check if modal render or not
-			//Emit socket to render modal
+		if (!pinModal[0]) { // check if modal render or not
+			// Emit socket to render modal
 			socket.emit('modules.renderPinChoose', null, function (err, result) {
-				//result is html text
+				// result is html text
 				$('body').append(result);
-				$('#pinChoose').css("display", "block");
+				$('#pinChoose').css('display', 'block');
 				$('#pinChoose span.close').click(function (e) {
 					console.log('closing');
-					$('#pinChoose').css("display", "none");
+					$('#pinChoose').css('display', 'none');
 				});
 				$('button#submitPin').on('click', function (e) {
-					e.preventDefault()
-					var key = "pindealbee:" 
-					+ $('#pinChoose .modal-content-body input:checked').data('type') 
-					+ ":" 
-					+ $('#pinChoose .modal-content-body input:checked').data('position')
+					e.preventDefault();
+					var key = 'pindealbee:' +
+					$('#pinChoose .modal-content-body input:checked').data('type') +
+					':' +
+					$('#pinChoose .modal-content-body input:checked').data('position');
 					var topicId = $('.posts').data('tid');
 					var dataStore = {
 						key: key,
-						tid: topicId
-					}
+						tid: topicId,
+					};
 					// console.log(dataStore);
 					$('#pinChoose span.close').trigger('click');
 					if ($('#pinChoose .modal-content-body input:checked').data('type')) {
 						$('#pinChoose span.close').trigger('click');
 						socket.emit('modules.submitPin', dataStore, function (err, result) {
-						})
+						});
 						// console.log(dataStore);
-					}
-					else
-						alert("Please choose position")
+					} else { alert('Please choose position'); }
 				});
 			});
+		} else {
+			pinModal.css('display', 'block');
 		}
-		else {
-			pinModal.css("display", "block");
-		}
-	})
+	});
 });

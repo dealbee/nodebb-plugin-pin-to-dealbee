@@ -9,70 +9,68 @@
 $(document).ready(function () {
 });
 $(window).on('action:ajaxify.end', function (event, data) {
-    if (data.url == "pin-preview") {
-        renderDataContainer()
-        $('#querryBtn').on('click', function () {
-            renderDataContainer()
-        })
-    }
+	if (data.url == 'pin-preview') {
+		renderDataContainer();
+		$('#querryBtn').on('click', function () {
+			renderDataContainer();
+		});
+	}
 });
 function renderDataContainer() {
-    var dataContainer = $('#data-container');
-    var sortedOp = $('#filter-dropbox option:selected').val();
-    var categoryOp=$('#filter-categories-dropbox option:selected').val();
-    var nameOp =$('#filter-name-input').val();
-    var options = { 
-        sort: sortedOp,
-        category: categoryOp,
-        name: nameOp }
-    socket.emit('modules.getTopicsToPin', options, function (err, result) {
-        dataContainer.empty();
-        dataContainer.append(result);
-        var buttonPins = $('button.btn-pin');
-        for (var i = 0; i < buttonPins.length; i++) {
-            buttonPins[i].addEventListener('click', function () {
-                var thisButton = $(this);
-                var pinModal = $('#pinChoose');
-                pinModal.remove();
-                // if (!pinModal[0]) {//check if modal render or not
-                //Emit socket to render modal
-                socket.emit('modules.renderPinChoose', null, function (err, result) {
-                    //result is html text
-                    $('body').append(result);
-                    $('#pinChoose').css("display", "block");
-                    $('#pinChoose').attr('data-tid', thisButton.data('tid'));
-                    $('#pinChoose span.close').click(function (e) {
-                        // console.log('closing');
-                        $('#pinChoose').css("display", "none");
-                    });
-                    $('button#submitPin').on('click', submitFunc);
-                });
-                // }
-                // else {
-                //     pinModal.css("display", "block");
-                // }
-            })
-        }
-    })
+	var dataContainer = $('#data-container');
+	var sortedOp = $('#filter-dropbox option:selected').val();
+	var categoryOp = $('#filter-categories-dropbox option:selected').val();
+	var nameOp = $('#filter-name-input').val();
+	var options = {
+		sort: sortedOp,
+		category: categoryOp,
+		name: nameOp };
+	socket.emit('modules.getTopicsToPin', options, function (err, result) {
+		dataContainer.empty();
+		dataContainer.append(result);
+		var buttonPins = $('button.btn-pin');
+		for (var i = 0; i < buttonPins.length; i++) {
+			buttonPins[i].addEventListener('click', function () {
+				var thisButton = $(this);
+				var pinModal = $('#pinChoose');
+				pinModal.remove();
+				// if (!pinModal[0]) {//check if modal render or not
+				// Emit socket to render modal
+				socket.emit('modules.renderPinChoose', null, function (err, result) {
+					// result is html text
+					$('body').append(result);
+					$('#pinChoose').css('display', 'block');
+					$('#pinChoose').attr('data-tid', thisButton.data('tid'));
+					$('#pinChoose span.close').click(function (e) {
+						// console.log('closing');
+						$('#pinChoose').css('display', 'none');
+					});
+					$('button#submitPin').on('click', submitFunc);
+				});
+				// }
+				// else {
+				//     pinModal.css("display", "block");
+				// }
+			});
+		}
+	});
 }
 var submitFunc = function () {
-    var key = "pindealbee:"
-        + $('#pinChoose .modal-content-body input:checked').data('type')
-        + ":"
-        + $('#pinChoose .modal-content-body input:checked').data('position')
-    var topicId = $('#pinChoose').data('tid');
-    var dataStore = {
-        key: key,
-        tid: topicId
-    }
-    // console.log(dataStore);
-    $('#pinChoose span.close').trigger('click');
-    if ($('#pinChoose .modal-content-body input:checked').data('type')) {
-        $('#pinChoose span.close').trigger('click');
-        socket.emit('modules.submitPin', dataStore, function (err, result) {
-        })
-        console.log(dataStore);
-    }
-    else
-        alert("Please choose position")
-}
+	var key = 'pindealbee:' +
+        $('#pinChoose .modal-content-body input:checked').data('type') +
+        ':' +
+        $('#pinChoose .modal-content-body input:checked').data('position');
+	var topicId = $('#pinChoose').data('tid');
+	var dataStore = {
+		key: key,
+		tid: topicId,
+	};
+	// console.log(dataStore);
+	$('#pinChoose span.close').trigger('click');
+	if ($('#pinChoose .modal-content-body input:checked').data('type')) {
+		$('#pinChoose span.close').trigger('click');
+		socket.emit('modules.submitPin', dataStore, function (err, result) {
+		});
+		console.log(dataStore);
+	} else { alert('Please choose position'); }
+};
