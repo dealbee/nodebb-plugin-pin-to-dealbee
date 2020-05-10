@@ -18,10 +18,12 @@
 		"static": "./static"
 	},
 	"less": [
-		"static/style.less"
+		"static/stylePinChoose.less",
+		"static/stylePinPreview.less"
 	],
 	"scripts": [
-		"static/lib/main.js"
+		"static/lib/pinChoose.js",
+		"static/lib/pinPreview.js"
 	],
 	"acpScripts": [
 		"static/lib/admin.js"

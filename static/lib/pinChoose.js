@@ -19,36 +19,35 @@ $(window).on('action:ajaxify.end', function (event, data) {
 		headerContainer.append(buttonPin);
 	}
 	$('button#buttonPin').on('click', function (e) {
-		var pinModal = $('#pinDealBeeModal');
+		var pinModal = $('#pinChoose');
 		if (!pinModal[0]) {//check if modal render or not
 			//Emit socket to render modal
-			socket.emit('modules.renderPinPreview', null, function (err, result) {
+			socket.emit('modules.renderPinChoose', null, function (err, result) {
 				//result is html text
-				console.log(result);
 				$('body').append(result);
-				$('#pinDealBeeModal').css("display", "block");
-				$('#pinDealBeeModal span.close').click(function (e) {
+				$('#pinChoose').css("display", "block");
+				$('#pinChoose span.close').click(function (e) {
 					console.log('closing');
-					$('#pinDealBeeModal').css("display", "none");
+					$('#pinChoose').css("display", "none");
 				});
-				$(".check-line").on('click', function () {
-					$(".check-line.checked").removeClass('checked');
-					$(this).addClass('checked');
-				})
-				$('button#submitPin').on('click', function () {
-					var key = "pindealbee:" + $('.check-line.checked').data('type') + ":" + $('.check-line.checked').data('position')
+				$('button#submitPin').on('click', function (e) {
+					e.preventDefault()
+					var key = "pindealbee:" 
+					+ $('#pinChoose .modal-content-body input:checked').data('type') 
+					+ ":" 
+					+ $('#pinChoose .modal-content-body input:checked').data('position')
 					var topicId = $('.posts').data('tid');
 					var dataStore = {
 						key: key,
 						tid: topicId
 					}
-					console.log(dataStore);
-					$('#pinDealBeeModal span.close').trigger('click');
-					if ($('.check-line.checked').data('type')) {
-						$('#pinDealBeeModal span.close').trigger('click');
+					// console.log(dataStore);
+					$('#pinChoose span.close').trigger('click');
+					if ($('#pinChoose .modal-content-body input:checked').data('type')) {
+						$('#pinChoose span.close').trigger('click');
 						socket.emit('modules.submitPin', dataStore, function (err, result) {
-							alert(result);
 						})
+						// console.log(dataStore);
 					}
 					else
 						alert("Please choose position")
