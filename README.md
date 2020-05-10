@@ -4,7 +4,7 @@ Plugin thêm chức năng (cụ thể là một butotn) giúp editor chọn lự
 Plugin chỉ dừng lại ở việc lưu thông tin vị trí bài đăng và bài viết được đặt vào vị trí đó.
 Api để lấy dữ liệu này sẽ được cung cấp trong một [plugin](https://github.com/dealbee/nodebb-plugin-thesis-write-api) khác
 
-Vị trí button Pin trong mỗi bài viết
+Vị trí button Pin trong mỗi bài viết</br>
 ![Button Postion](screenshots/button-position.png?raw=true)
 
 ## Dữ liệu về sơ đồ bố trí bài viết trên trang chủ Dealbee
