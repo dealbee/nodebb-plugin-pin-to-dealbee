@@ -42,7 +42,7 @@
                 <input class="form-control" type="text" placeholder="Topic name" id="filter-name-input">
             </div>
             <div class="col-md-3">
-                <button class="btn btn-primary" id="querryBtn">Querry</button>
+                <button class="btn btn-primary" id="querryBtn">Query</button>
             </div>
         </div>
     </div>

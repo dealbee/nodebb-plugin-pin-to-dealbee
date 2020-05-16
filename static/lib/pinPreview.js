@@ -7,9 +7,14 @@
 // bootstrap+='\n<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>'
 
 $(document).ready(function () {
+	$(window).bind("pageshow", function(event) {
+		if (event.originalEvent.persisted) {
+			window.location.reload(); 
+		}
+	});
 });
 $(window).on('action:ajaxify.end', function (event, data) {
-	if (data.url == 'pin-preview') {
+	if (data.url == 'pindealbee') {
 		renderDataContainer();
 		$('#querryBtn').on('click', function () {
 			renderDataContainer();
@@ -21,11 +26,12 @@ function renderDataContainer() {
 	var sortedOp = $('#filter-dropbox option:selected').val();
 	var categoryOp = $('#filter-categories-dropbox option:selected').val();
 	var nameOp = $('#filter-name-input').val();
-	var options = {
+	$.post('/pin-preview', {
+		option: "get-topics-to-pin",
 		sort: sortedOp,
 		category: categoryOp,
-		name: nameOp };
-	socket.emit('modules.getTopicsToPin', options, function (err, result) {
+		name: nameOp
+	}).done(function (result) {
 		dataContainer.empty();
 		dataContainer.append(result);
 		var buttonPins = $('button.btn-pin');
@@ -34,34 +40,37 @@ function renderDataContainer() {
 				var thisButton = $(this);
 				var pinModal = $('#pinChoose');
 				pinModal.remove();
-				// if (!pinModal[0]) {//check if modal render or not
-				// Emit socket to render modal
-				socket.emit('modules.renderPinChoose', null, function (err, result) {
-					// result is html text
-					$('body').append(result);
-					$('#pinChoose').css('display', 'block');
-					$('#pinChoose').attr('data-tid', thisButton.data('tid'));
-					$('#pinChoose span.close').click(function (e) {
-						// console.log('closing');
-						$('#pinChoose').css('display', 'none');
-					});
-					$('button#submitPin').on('click', submitFunc);
-				});
+				$.post('/pin-preview', { option: "render-pin-choose" })
+					.done(function (result) {
+						// result is html text
+						$('body').append(result);
+						$('#pinChoose').css('display', 'block');
+						$('#pinChoose').attr('data-tid', thisButton.data('tid'));
+						$('#pinChoose span.close').click(function (e) {
+							// console.log('closing');
+							$('#pinChoose').css('display', 'none');
+						});
+						$('button#submitPin').on('click', submitFunc);
+					})
+
 				// }
 				// else {
 				//     pinModal.css("display", "block");
 				// }
 			});
 		}
-	});
+	}).fail(function (err) {
+		console.log(err);
+	})
 }
 var submitFunc = function () {
 	var key = 'pindealbee:' +
-        $('#pinChoose .modal-content-body input:checked').data('type') +
-        ':' +
-        $('#pinChoose .modal-content-body input:checked').data('position');
+		$('#pinChoose .modal-content-body input:checked').data('type') +
+		':' +
+		$('#pinChoose .modal-content-body input:checked').data('position');
 	var topicId = $('#pinChoose').data('tid');
 	var dataStore = {
+		option: "submit-pin",
 		key: key,
 		tid: topicId,
 	};
@@ -69,8 +78,17 @@ var submitFunc = function () {
 	$('#pinChoose span.close').trigger('click');
 	if ($('#pinChoose .modal-content-body input:checked').data('type')) {
 		$('#pinChoose span.close').trigger('click');
-		socket.emit('modules.submitPin', dataStore, function (err, result) {
-		});
-		console.log(dataStore);
+		$.post('/pin-preview', dataStore)
+			.done(function (res) {
+				app.alert({
+					type: 'success',
+					title: '<i class="fa fa-1x fa-thumb-tack"></i> Pin successfully',
+					message: 'This post has been pin on Dealbee',
+					timeout: 5000
+				});
+			})
+			.fail(function (res) {
+				app.alertError('Pin fail')
+			})
 	} else { alert('Please choose position'); }
 };

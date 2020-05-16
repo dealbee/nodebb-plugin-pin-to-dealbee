@@ -1,31 +1,37 @@
 {
-  "_from": "nodebb-plugin-pin-to-dealbee",
+  "_from": "nodebb-plugin-pin-to-dealbee@^0.1.3",
+  "_id": "nodebb-plugin-pin-to-dealbee@0.1.3",
   "_inBundle": false,
-  "_integrity": "sha512-rFfLiP+glzbQ+5vtxs+52CtU1Jv39BX6WuBsr0nuCGeuQ4v7HBlqIjeOAInG8svkNycW9eK7dqhGWsfj1ZigjA==",
+  "_integrity": "sha512-bEuRduyE5FKbOm0Sc0OgRSdbQCyWU7v4BgqowxzNKb15ClFZWmPMOXg5lmPhZShZgYTSV1D6dPEFtub2Gb/5BQ==",
   "_location": "/nodebb-plugin-pin-to-dealbee",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "nodebb-plugin-pin-to-dealbee",
+    "raw": "nodebb-plugin-pin-to-dealbee@^0.1.3",
     "name": "nodebb-plugin-pin-to-dealbee",
     "escapedName": "nodebb-plugin-pin-to-dealbee",
-    "rawSpec": "",
+    "rawSpec": "^0.1.3",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^0.1.3"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/nodebb-plugin-pin-to-dealbee/-/nodebb-plugin-pin-to-dealbee-0.3.1.tgz",
-  "_shasum": "2fb50df8147cf18588baf9a30cc6b9f5fc444fe6",
-  "_spec": "nodebb-plugin-pin-to-dealbee",
+  "_resolved": "https://registry.npmjs.org/nodebb-plugin-pin-to-dealbee/-/nodebb-plugin-pin-to-dealbee-0.1.3.tgz",
+  "_shasum": "7736a73ecb54cbbcd2e0c7109b7cb68258ff1583",
+  "_spec": "nodebb-plugin-pin-to-dealbee@^0.1.3",
   "_where": "D:\\ĐẠI HỌC\\NĂM 4\\HK2\\NodeBB\\nodebb_group\\NodeBB",
-  "author": "psychobunny <lam.cuong.dat@gmail.com> (edited by lamcuongdat)",
+  "author": {
+    "name": "psychobunny",
+    "email": "lam.cuong.dat@gmail.com",
+    "url": "edited by lamcuongdat"
+  },
   "bugs": {
     "url": "https://github.com/dealbee/nodebb-plugin-pin-to-dealbee/issues"
   },
+  "bundleDependencies": false,
   "deprecated": false,
   "description": "A plugin to add function pinning deal to dealbee",
   "devDependencies": {
@@ -36,6 +42,9 @@
     "eslint-plugin-import": "^2.8.0",
     "husky": "^2.4.0",
     "lint-staged": "^8.2.0"
+  },
+  "directories": {
+    "lib": "lib"
   },
   "homepage": "https://github.com/dealbee/nodebb-plugin-pin-to-dealbee#readme",
   "husky": {
@@ -65,13 +74,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dealbee/nodebb-plugin-pin-to-dealbee"
-  },
-  "version": "0.1.2",
-  "directories": {
-    "lib": "lib"
+    "url": "git+https://github.com/dealbee/nodebb-plugin-pin-to-dealbee.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  },
+  "version": "0.1.3"
 }

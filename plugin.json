@@ -4,22 +4,41 @@
 	"library": "./library.js",
 	"hooks": [
 		{
-			"hook": "static:app.load", "method": "init"
+			"hook": "static:app.load",
+			"method": "init"
 		},
 		{
-			"hook": "filter:admin.header.build", "method": "addAdminNavigation"
+			"hook": "filter:admin.header.build",
+			"method": "addAdminNavigation"
 		},
 		{
-			"hook":"filter:topic.build","method":"topicBuild"
+			"hook": "filter:topic.build",
+			"method": "topicBuild"
+		},
+		{
+			"hook": "filter:privileges.list",
+			"method": "privilegesList"
+		},
+		{
+			"hook": "filter:privileges.groups.list",
+			"method": "privilegesGroupsList"
+		},
+		{
+			"hook": "filter:privileges.list_human",
+			"method": "privilegesListHuman"
+		},
+		{
+			"hook": "filter:privileges.groups.list_human",
+			"method": "privilegesListHuman"
 		}
-		
 	],
 	"staticDirs": {
 		"static": "./static"
 	},
 	"less": [
 		"static/stylePinChoose.less",
-		"static/stylePinPreview.less"
+		"static/stylePinPreview.less",
+		"static/pagePreview.less"
 	],
 	"scripts": [
 		"static/lib/pinChoose.js",
