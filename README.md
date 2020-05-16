@@ -78,7 +78,7 @@ Truy cập đường dẫn: `/pindealbee/preview` hoặc phím tắt từ trang 
 Người dùng chỉ cần là editor-người có thể pin bài viết thuộc tối thiểu một category-đã có thể truy cập vào trang này.
 
 Người dùng có thể xem toàn bộ vị trí và bài viết được gắn vào đó. Tuy nhiên người dùng chỉ có thể thao tác lên vị trí mà đang có bài viết gắn vào đó thuộc chủ đề mà người dùng được phân quyền.
-*Ví dụ: Người dùng được phân quyền cho chủ đề 'Thảo luận chung', sẽ chỉ thao tác được các bài viết thuộc chủ đề này*
+</br>*Ví dụ: Người dùng được phân quyền cho chủ đề 'Thảo luận chung', sẽ chỉ thao tác được các bài viết thuộc chủ đề này*
 
 Đối với các bài viết mà người dùng có thể thao tác, người dùng có thể gỡ bài viết (unpin). Lúc này vị trí sẽ trở thành vị trí trống.
 
