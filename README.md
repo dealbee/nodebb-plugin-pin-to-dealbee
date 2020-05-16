@@ -23,14 +23,14 @@ Ví dụ:</br>_id: ObjectId("5eb432a1389e5c95d8cbdc8f")</br>_key: pindealbee:typ
 
 ## Trang preview
 
-Để vào trang, truy cập đến đường dẫn: `/pin-preview`
+Để vào trang, truy cập đến đường dẫn: `/pindealbee`
 
 Trang preview hỗ trợ các editors có cái nhìn tổng quan về các bài viết, từ trang này có thể chọn trực tiếp một bài viết lên trang chính.
 
 Trang hiển thị các bài viết dưới dạng các dòng dữ liệu.
 
 Giao diện chính trang pin preview
-![Button Postion](screenshots/pin-preview.png?raw=true)
+![Button Postion](screenshots/pindealbee.png?raw=true)
 
 Button Pin trong mỗi dòng dữ liệu ở trang preview
 ![Button Postion](screenshots/button-in-row.png?raw=true)

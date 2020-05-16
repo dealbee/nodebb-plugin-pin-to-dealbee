@@ -7,9 +7,9 @@
 // bootstrap+='\n<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>'
 
 $(document).ready(function () {
-	$(window).bind("pageshow", function(event) {
+	$(window).bind("pageshow", function (event) {
 		if (event.originalEvent.persisted) {
-			window.location.reload(); 
+			window.location.reload();
 		}
 	});
 });
@@ -26,7 +26,7 @@ function renderDataContainer() {
 	var sortedOp = $('#filter-dropbox option:selected').val();
 	var categoryOp = $('#filter-categories-dropbox option:selected').val();
 	var nameOp = $('#filter-name-input').val();
-	$.post('/pin-preview', {
+	$.post('/pindealbee', {
 		option: "get-topics-to-pin",
 		sort: sortedOp,
 		category: categoryOp,
@@ -40,12 +40,15 @@ function renderDataContainer() {
 				var thisButton = $(this);
 				var pinModal = $('#pinChoose');
 				pinModal.remove();
-				$.post('/pin-preview', { option: "render-pin-choose" })
+				$.post('/pindealbee', { option: "render-pin-choose" })
 					.done(function (result) {
 						// result is html text
 						$('body').append(result);
 						$('#pinChoose').css('display', 'block');
 						$('#pinChoose').attr('data-tid', thisButton.data('tid'));
+						$('#pinChoose').attr('data-title', thisButton.data('title'));
+						$('#pinChoose').attr('data-category', thisButton.data('category'));
+
 						$('#pinChoose span.close').click(function (e) {
 							// console.log('closing');
 							$('#pinChoose').css('display', 'none');
@@ -78,14 +81,22 @@ var submitFunc = function () {
 	$('#pinChoose span.close').trigger('click');
 	if ($('#pinChoose .modal-content-body input:checked').data('type')) {
 		$('#pinChoose span.close').trigger('click');
-		$.post('/pin-preview', dataStore)
+		$.post('/pindealbee', dataStore)
 			.done(function (res) {
 				app.alert({
 					type: 'success',
 					title: '<i class="fa fa-1x fa-thumb-tack"></i> Pin successfully',
-					message: 'This post has been pin on Dealbee',
+					message: 'This post has been pinned on Dealbee',
 					timeout: 5000
 				});
+				socket.emit('modules.pindealbeePin',
+					{
+						typeId: $('#pinChoose .modal-content-body input:checked').data('type'),
+						posId: $('#pinChoose .modal-content-body input:checked').data('position'),
+						title: $('#pinChoose').data('title'),
+						category: "Category: "+$('#pinChoose').data('category')
+					}, function (err, result) {
+					});
 			})
 			.fail(function (res) {
 				app.alertError('Pin fail')

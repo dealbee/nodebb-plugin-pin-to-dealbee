@@ -1,6 +1,7 @@
 <div class="container" id="pagePreview">
+    <h1>Dealbee homepage preview</h1>
     <!-- BEGIN positionTypes -->
-    <h2>{positionTypes.positionName}</h2>
+    <h2 class="position-type">{positionTypes.positionName}</h2>
     <div class="row">
         <!-- BEGIN positionTypes.positions -->
         <div class="col-md-3">
@@ -8,12 +9,17 @@
             <div class="card">
                 <!-- IF positionTypes.positions.topicData.canEdit -->
                 <span class="pull-right">
-                    <button class="fa fa-trash btn btn-danger"></button>
+                    <i class="fa fa-trash unpin-btn" data-typeid={positionTypes.id} data-posid={positionTypes.positions.id} data-tid={positionTypes.positions.topicData.tid}>
+                    </i>
                 </span>
                 <!-- ENDIF positionTypes.positions.topicData.canEdit -->
                 <div class="card-body">
-                    <h4 class="position">{positionTypes.positions.description}</h4>
-                    <h5 class="card-title">{positionTypes.positions.topicData.title}</h5>
+                    <h5 class="position">{positionTypes.positions.description}</h5>
+                    <h5 class="card-title">
+                        <a href="/topic/{positionTypes.positions.topicData.tid}" target="_blank">
+                            {positionTypes.positions.topicData.title}
+                        </a>
+                    </h5>
                     <h6 class="category-name">Category: {positionTypes.positions.topicData.category.name}</h6>
                 </div>
             </div>
@@ -22,10 +28,10 @@
             <!-- IF !positionTypes.positions.topicData -->
             <div class="card empty">
                 <span class="pull-right">
-                    <button class="fa fa-thumb-tack btn btn-success"></button>
+                    <a href="/pindealbee" class="fa fa-thumb-tack navigate-btn" target="_blank"></a>
                 </span>
                 <div class="card-body">
-                    <h4 class="position">{positionTypes.positions.description}</h4>
+                    <h5 class="position">{positionTypes.positions.description}</h5>
                     <h5 class="card-title">Empty</h5>
                     <h6 class="category-name">No content to display</h6>
                 </div>

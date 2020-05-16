@@ -1,6 +1,6 @@
 <div class="container" id="pinPreview">
     <h1>
-        Preview page to pin posts to Dealbee
+        Lists of posts to pin on Dealbee
     </h1>
     <div class="container filter">
         <div class="row">
@@ -48,4 +48,7 @@
     </div>
     <div class="container data" id="data-container">
     </div>
+    <a href="/pindealbee/preview" target="_blank" class="btn btn-success" id="page-preview-btn">
+        <i class="fa fa-2x fa-eye"></i>
+    </a>
 </div>

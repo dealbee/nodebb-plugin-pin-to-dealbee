@@ -18,7 +18,9 @@
             <td>{topics.category.name}</td>
             <td>
                 <a href="/topic/{topics.tid}" target="_blank">
-                    {topics.title}
+                    <strong>
+                        {topics.title}
+                    </strong>
                 </a>
             </td>
             <td>{topics.viewcount}</td>
@@ -26,7 +28,7 @@
             <td>{topics.timestampISO}</td>
             <td>{topics.lastposttimeISO}</td>
             <td>
-                <button class="btn btn-primary btn-pin" data-tid={topics.tid}>
+                <button class="btn btn-primary btn-pin" data-tid={topics.tid} data-category="{topics.category.name}" data-title="{topics.title}">
                     <i class="fa fa-1x fa-thumb-tack"></i>
                 </button>
             </td>

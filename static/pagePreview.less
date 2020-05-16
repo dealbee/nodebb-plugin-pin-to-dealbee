@@ -1,4 +1,11 @@
 #pagePreview{
+    h2.position-type{
+        display: inline-block;
+        padding: 3px 7px;
+        font-weight: bold;
+        color: white;
+        background-color: #337ab7;
+    }
     .card{
         border-left: 4px solid #86ba4b;
         text-align: left;margin-top: 2px;
@@ -7,8 +14,47 @@
         box-shadow: 0px 0px 5px gray;
         padding: 20px;
         margin-bottom: 20px;
+        .card-title{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        .position{
+            font-weight: bold;
+            display: inline-block;
+            background-color: #86ba4b;
+            color: white;
+            padding: 3px 7px;
+            margin-top: 0px;
+        }
+        .unpin-btn{
+            background-color: transparent;
+            border-color: transparent;
+            color: black;
+            font-size: 15px;
+        }
+        .unpin-btn:hover{
+            cursor: pointer;
+            font-size: 17px;
+        }
     }
     .card.empty{
-        border-left: 4px solid #fda34b;
+        border-left: 4px solid #717484;
+        background-color: #e6e6e6;
+        .position{
+            background-color: gray;
+        }
+        .navigate-btn{
+            background-color: transparent;
+            border-color: transparent;
+            color: black;
+            font-size: 15px;
+        }
+        .navigate-btn:hover{
+            font-size: 17px;
+            cursor: pointer;
+        }
     }
 }

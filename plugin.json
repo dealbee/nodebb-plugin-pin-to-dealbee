@@ -42,7 +42,8 @@
 	],
 	"scripts": [
 		"static/lib/pinChoose.js",
-		"static/lib/pinPreview.js"
+		"static/lib/pinPreview.js",
+		"static/lib/pagePreview.js"
 	],
 	"acpScripts": [
 		"static/lib/admin.js"

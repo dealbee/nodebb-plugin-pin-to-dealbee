@@ -12,6 +12,7 @@ const position = require('./lib/positionData.js');
 const privilegeNames = {
 	canPin: 'pindealbee:event:pin'
 };
+const socketIndex = module.parent.require('./socket.io/index');
 plugin.db = require.main.require('./src/database');
 plugin.topicData = [];
 plugin.init = function (params, callback) {
@@ -28,10 +29,10 @@ plugin.init = function (params, callback) {
 		// controllers.renderAdminPage,
 		controllers.renderPinChoosePage
 	);
-	router.get('/pindealbee/preview',checkAdminAndModMiddleware, testMiddleware, hostMiddleware.buildHeader, controllers.renderPreviewPage)
+	router.get('/pindealbee/preview', checkAdminAndModMiddleware, pagePreviewMiddleware, hostMiddleware.buildHeader, controllers.renderPreviewPage)
 	router.get('/admin/plugins/quickstart', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
-	router.get('/api/admin/plugins/quickstart', testMiddleware, controllers.renderAdminPage);
-	params.app.post('/pin-preview', async function (req, res) {
+	router.get('/api/admin/plugins/quickstart', pagePreviewMiddleware, controllers.renderAdminPage);
+	params.app.post('/pindealbee', async function (req, res) {
 		// console.log(req.body)
 		if (!req.body.option)
 			res.status(400).send({ message: "option is required" })
@@ -78,11 +79,30 @@ plugin.init = function (params, callback) {
 			res.status(400).send({ message: "No command found" })
 		}
 	})
-	// modulesSockets.renderPinChoose = function (socket, data, callback) {
-	// 	params.app.render('pinChoose', position.buttonsData, function (err, html) {
-	// 		callback(null, html);
-	// 	});
-	// };
+	params.app.delete('/pindealbee/unpin/:id/:tid', checkAdminAndModMiddleware, async function (req, res) {
+		var topicCid = await topics.getTopicField(req.params.tid, ['cid']);
+		var canUnpin = req.modOfCids.find(e => e == topicCid.toString());
+		if (!canUnpin) {
+			return res.status(400).send({ message: "No have permisson" });
+		}
+		var obj = await plugin.db.client.collection('objects').deleteOne({ _key: req.params.id, tid: parseInt(req.params.tid) });
+		if (obj.deletedCount == 1)
+			res.status(200).send({ message: "Unpin post at position " + req.params.id + " successfully" })
+		else
+			res.status(400).send({ message: "Fail to unpin" });
+	})
+	params.app.post('/pindealbee/preview/update-view', checkAdminAndModMiddleware, pagePreviewMiddleware, function(req,res){
+		params.app.render('pagePreview.tpl', { positionTypes: req.positionData.positionTypes},function(err, html){
+			res.status(200).send(html);
+		});
+	})
+	modulesSockets.pindealbeePin = function (socket, data, callback) {
+		socketIndex.server.sockets.emit('pin-post',data);
+	};
+	modulesSockets.pindealbeeUnpin = function (socket, data, callback) {
+		// socket.broadcast.emit('unpin-post',data)
+		socketIndex.server.sockets.emit('unpin-post',data);
+	};
 	// modulesSockets.submitPin = function (socket, data, callback) {
 	// 	// plugin.db.sortedSetAdd('users:reputationnn', 200, "127.0.0.0.1"); //score value
 	// 	// plugin.db.sortedSetAdd('users:reputationnn', 200, "127.0.0.0.2");
@@ -128,9 +148,7 @@ plugin.topicBuild = function (data, callback) {
 	callback(null, data);
 };
 var pinPreviewMiddleware = async function (req, res, next) {
-	console.log("Check")
 	var cids = req.modOfCids.map(i => 'cid:' + i + ':tids');
-	console.log(cids);
 	var keys = await plugin.db.client.collection('objects').find({ _key: { $in: cids } }).toArray(); // Get all tids in cids
 	var tids = keys.map(i => i.value); // Only get tids
 	var querryDatas = await topics.getTopicsByTids(tids, 1); // Get
@@ -189,7 +207,7 @@ var checkAdminAndModMiddleware = async function (req, res, next) {
 		next();
 	}
 }
-var testMiddleware = async function (req, res, next) {
+var pagePreviewMiddleware = async function (req, res, next) {
 	var positionData = position.buttonsData;
 	var positionKeys = []
 	positionData.positionTypes.map(e => e.positions.map(i => {
@@ -204,18 +222,18 @@ var testMiddleware = async function (req, res, next) {
 	// console.log(tids);
 	var topicsData = await topics.getTopicsByTids(tids, 1);
 	var cids = req.modOfCids;
-	cids = cids.map(i=>parseInt(i));
-	topicsData.map(i=>{
-		var match = cids.find(e=>{
-		  return e==i.cid;
+	cids = cids.map(i => parseInt(i));
+	topicsData.map(i => {
+		var match = cids.find(e => {
+			return e == i.cid;
 		})
-		if(match){
-		  i.canEdit = true
+		if (match) {
+			i.canEdit = true
 		}
-		else{
-		  i.canEdit=false
+		else {
+			i.canEdit = false
 		}
-	  })
+	})
 	postionTids.map(e => {
 		e.topicData = topicsData.find(i => {
 			return i.tid == e.tid
