@@ -21,31 +21,33 @@ Qui tắc đặt tên key của một vị trí: `pindealbee:{type-id}:{position
 
 Ví dụ:</br>_id: ObjectId("5eb432a1389e5c95d8cbdc8f")</br>_key: pindealbee:type1:5</br>tid: 3
 
-## Trang preview
+## Trang tổng hợp bài viết để pin
 
 Để vào trang, truy cập đến đường dẫn: `/pindealbee`
 
-Trang preview hỗ trợ các editors có cái nhìn tổng quan về các bài viết, từ trang này có thể chọn trực tiếp một bài viết lên trang chính.
+Trang pin choose hỗ trợ các editors có cái nhìn tổng quan về các bài viết, từ trang này có thể chọn trực tiếp một bài viết lên trang chính.
 
 Trang hiển thị các bài viết dưới dạng các dòng dữ liệu.
 
-Giao diện chính trang pin preview
+Giao diện chính trang pin choose
 ![Button Postion](screenshots/pindealbee.png?raw=true)
 
 Button Pin trong mỗi dòng dữ liệu ở trang preview
 ![Button Postion](screenshots/button-in-row.png?raw=true)
 
-### Xác thực vai trò người dùng
+### Phân quyền cho người dùng
 
-Chỉ có một vài loại người dùng mới có thể vào được trang preview này.
+Admin có thể phân quyền cho người dùng để pin bài viết lên trang Dealbee tại `/admin/manage/privileges`
 
-Cụ thể chỉ có các loại người dùng sau được vào:
-- Admin : Có thể thao tác trên tất cả các bài viết thuộc bất kỳ category nào
-- Global Mod: Vai trò như admin
-- Local Mod: Là các mod thuộc một (hoặc một vài) category cụ thể, các mod này chỉ có thể thao tác lên các bài viết thuộc category mà mình quản lý
+**Ghi chú: Không thể phân quyền Global, chỉ có thể phân quyền cho từng Category cụ thể**
 
-Để tùy chỉnh vai trò của người dùng, truy cập vào đường dẫn (dưới quyền admin): */admin/manage/admins-mods*
+Admin sẽ có toàn quyền pin tất cả các bài viết thuộc bất kỳ chủ đề nào.
 
+Người dùng được phân quyền cho chủ đề nào thì mới pin bài viết thuộc chủ đề đó lên trang Dealbee.
+
+Hỗ trợ phân quyền cho một người dùng hoặc một group cụ thể
+
+![Button Postion](screenshots/add-privileges.png?raw=true)
 ### Bộ lọc hỗ trợ
 
 Dữ liệu hiển thị trên trang preview có thể được lọc bằng: category hoặc tên của bài viết
@@ -60,3 +62,32 @@ Dữ liệu hiển thị có thể được sắp xếp bằng các tiêu chí:
 
 Giao diện người dùng để chọn vị trí (demo)
 ![Button Postion](screenshots/pin-choose.png?raw=true)
+
+## Trang preview các bài viết trên trang Dealbee
+
+![Button Postion](screenshots/page-preview.png?raw=true)
+
+Các bài viết sẽ được hiển thị dưới dạng các hộp thông tin, chứa thông tin của bài viết đang được gắn vào nó.
+
+Các vị trí chưa có bài viết sẽ có màu sắc nổi bật và khác biệt.
+
+### Phân quyền cho người dùng được vào trang preview
+
+Truy cập đường dẫn: `/pindealbee/preview` hoặc phím tắt từ trang `/pindealbee`
+
+Người dùng chỉ cần là editor-người có thể pin bài viết thuộc tối thiểu một category-đã có thể truy cập vào trang này.
+
+Người dùng có thể xem toàn bộ vị trí và bài viết được gắn vào đó. Tuy nhiên người dùng chỉ có thể thao tác lên vị trí mà đang có bài viết gắn vào đó thuộc chủ đề mà người dùng được phân quyền.
+*Ví dụ: Người dùng được phân quyền cho chủ đề 'Thảo luận chung', sẽ chỉ thao tác được các bài viết thuộc chủ đề này*
+
+Đối với các bài viết mà người dùng có thể thao tác, người dùng có thể gỡ bài viết (unpin). Lúc này vị trí sẽ trở thành vị trí trống.
+
+![Button Postion](screenshots/position-kinds.png?raw=true)
+
+### Cập nhật thời gian thực với Socket IO
+
+Việc cập nhật này chỉ áp dụng với trang preview.
+
+Khi có một người dùng khác thao tác lên một vị trí (unpin hoặc thêm mới/update bài viết từ trang pin choose) thì toàn bộ người dùng đang truy cập vào trang pin preview đều được nhận thông báo và view của trang sẽ được cập nhật lại
+
+![Button Postion](screenshots/notification.png?raw=true)
