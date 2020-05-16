@@ -30,7 +30,7 @@ Trang pin choose hỗ trợ các editors có cái nhìn tổng quan về các b�
 Trang hiển thị các bài viết dưới dạng các dòng dữ liệu.
 
 Giao diện chính trang pin choose
-![Button Postion](screenshots/pindealbee.png?raw=true)
+![Button Postion](screenshots/pin-preview.png?raw=true)
 
 Button Pin trong mỗi dòng dữ liệu ở trang preview
 ![Button Postion](screenshots/button-in-row.png?raw=true)
