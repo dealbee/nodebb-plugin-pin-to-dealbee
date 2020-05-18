@@ -30,8 +30,8 @@ plugin.init = function (params, callback) {
 		controllers.renderPinChoosePage
 	);
 	router.get('/pindealbee/preview', checkAdminAndModMiddleware, pagePreviewMiddleware, hostMiddleware.buildHeader, controllers.renderPreviewPage)
-	router.get('/admin/plugins/quickstart', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
-	router.get('/api/admin/plugins/quickstart', pagePreviewMiddleware, controllers.renderAdminPage);
+	router.get('/admin/plugins/pin-to-dealbee', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
+	router.get('/api/admin/plugins/pin-to-dealbee', controllers.renderAdminPage);
 	params.app.post('/pindealbee', async function (req, res) {
 		// console.log(req.body)
 		if (!req.body.option)
@@ -137,9 +137,9 @@ plugin.init = function (params, callback) {
 
 plugin.addAdminNavigation = function (header, callback) {
 	header.plugins.push({
-		route: '/plugins/quickstart',
+		route: '/plugins/pin-to-dealbee',
 		icon: 'fa-tint',
-		name: 'Quickstart',
+		name: 'Pin to dealbee',
 	});
 
 	callback(null, header);

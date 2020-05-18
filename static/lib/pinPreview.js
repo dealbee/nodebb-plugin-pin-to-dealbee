@@ -26,7 +26,7 @@ function renderDataContainer() {
 	var sortedOp = $('#filter-dropbox option:selected').val();
 	var categoryOp = $('#filter-categories-dropbox option:selected').val();
 	var nameOp = $('#filter-name-input').val();
-	$.post('/pindealbee', {
+	$.post(config.relative_path + '/pindealbee', {
 		option: "get-topics-to-pin",
 		sort: sortedOp,
 		category: categoryOp,
@@ -40,7 +40,7 @@ function renderDataContainer() {
 				var thisButton = $(this);
 				var pinModal = $('#pinChoose');
 				pinModal.remove();
-				$.post('/pindealbee', { option: "render-pin-choose" })
+				$.post(config.relative_path + '/pindealbee', { option: "render-pin-choose" })
 					.done(function (result) {
 						// result is html text
 						$('body').append(result);
@@ -81,7 +81,7 @@ var submitFunc = function () {
 	$('#pinChoose span.close').trigger('click');
 	if ($('#pinChoose .modal-content-body input:checked').data('type')) {
 		$('#pinChoose span.close').trigger('click');
-		$.post('/pindealbee', dataStore)
+		$.post(config.relative_path + '/pindealbee', dataStore)
 			.done(function (res) {
 				app.alert({
 					type: 'success',

@@ -12,7 +12,7 @@ $(window).on('action:ajaxify.end', function (event, data) {
                 message: '<strong>' + data.title + '</strong></br>' + data.category,
                 timeout: 10000
             });
-            $.post('/pindealbee/preview/update-view', null)
+            $.post(config.relative_path + '/pindealbee/preview/update-view', null)
                 .done(function (res) {
                     $('#content').empty();
                     $('#content').append(res);
@@ -30,7 +30,7 @@ $(window).on('action:ajaxify.end', function (event, data) {
                 message: '<strong>' + data.title + '</strong></br>' + data.category,
                 timeout: 10000
             });
-            $.post('/pindealbee/preview/update-view', null)
+            $.post(config.relative_path + '/pindealbee/preview/update-view', null)
                 .done(function (res) {
                     $('#content').empty();
                     $('#content').append(res);
@@ -53,9 +53,8 @@ var functionUnpin = function () {
         message: "Do you want to unpin this topic?",
         callback: function (ok) {
             if (ok) {
-                console.log('/pindealbee/unpin/' + 'pindealbee:' + typeId + ":" + posId + "/" + tid)
                 $.ajax({
-                    url: '/pindealbee/unpin/' + 'pindealbee:' + typeId + ":" + posId + "/" + tid,
+                    url: config.relative_path + '/pindealbee/unpin/' + 'pindealbee:' + typeId + ":" + posId + "/" + tid,
                     type: 'DELETE',
                 })
                     .done(function (res) {
