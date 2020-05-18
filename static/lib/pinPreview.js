@@ -15,10 +15,14 @@ $(document).ready(function () {
 });
 $(window).on('action:ajaxify.end', function (event, data) {
 	if (data.url == 'pindealbee') {
-		$('#page-preview-btn').attr('href',config.relative_path+"/pindealbee/preview")
+		$('#page-preview-btn').attr('href', config.relative_path + "/pindealbee/preview")
 		renderDataContainer();
 		$('#querryBtn').on('click', function () {
 			renderDataContainer();
+			var a = $('#data-container a')
+			for (var i = 0; i < a.length; i++) {
+				$(a[i]).attr('href', config.relative_path + $(a[i]).attr('href'))
+			}
 		});
 	}
 });
@@ -95,7 +99,7 @@ var submitFunc = function () {
 						typeId: $('#pinChoose .modal-content-body input:checked').data('type'),
 						posId: $('#pinChoose .modal-content-body input:checked').data('position'),
 						title: $('#pinChoose').data('title'),
-						category: "Category: "+$('#pinChoose').data('category')
+						category: "Category: " + $('#pinChoose').data('category')
 					}, function (err, result) {
 					});
 			})

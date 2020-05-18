@@ -37,8 +37,9 @@ plugin.init = function (params, callback) {
 		if (!req.body.option)
 			res.status(400).send({ message: "option is required" })
 		else if (req.body.option == 'can-pin') {
+			var isAdmin = await user.isAdministrator(req.uid);
 			var cids = await plugin.canPinCids(req.uid);
-			if (cids.length == 0) {
+			if (cids.length == 0 && !isAdmin) {
 				res.status(400).send({ message: "No permission" })
 			}
 			else {

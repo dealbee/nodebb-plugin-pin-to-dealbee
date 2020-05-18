@@ -20,6 +20,7 @@ $(window).on('action:ajaxify.end', function (event, data) {
                     var divChange = $('button[data-posid="' + data.posId + '"][data-typeid="' + data.typeId + '"]').parent().parent();
                     console.log(divChange);
                     divChange.css("box-shadow", "0px 0px 5px #fda34b")
+                    changeHref()
                 })
         });
         socket.on('pin-post', function (data) {
@@ -37,9 +38,11 @@ $(window).on('action:ajaxify.end', function (event, data) {
                     $('.unpin-btn').on('click', functionUnpin)
                     var divChange = $('button[data-posid="' + data.posId + '"][data-typeid="' + data.typeId + '"]').parent().parent();
                     divChange.css("box-shadow", "0px 0px 5px #337ab7")
+                    changeHref()
                 })
         });
         $('.unpin-btn').on('click', functionUnpin)
+        changeHref()
     }
 });
 var functionUnpin = function () {
@@ -73,4 +76,10 @@ var functionUnpin = function () {
             }
         }
     })
+}
+var changeHref = function () {
+    var a = $('.card .card-title a')
+    for (var i = 0; i < a.length; i++) {
+        $(a[i]).attr('href', config.relative_path + $(a[i]).attr('href'))
+    }
 }
