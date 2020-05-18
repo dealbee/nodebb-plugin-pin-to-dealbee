@@ -32,7 +32,7 @@ plugin.init = function (params, callback) {
 	router.get('/pindealbee/preview', checkAdminAndModMiddleware, pagePreviewMiddleware, hostMiddleware.buildHeader, controllers.renderPreviewPage)
 	router.get('/admin/plugins/pin-to-dealbee', hostMiddleware.admin.buildHeader, controllers.renderAdminPage);
 	router.get('/api/admin/plugins/pin-to-dealbee', controllers.renderAdminPage);
-	params.app.post('/pindealbee', async function (req, res) {
+	router.post('/pindealbee', async function (req, res) {
 		// console.log(req.body)
 		if (!req.body.option)
 			res.status(400).send({ message: "option is required" })
@@ -79,7 +79,7 @@ plugin.init = function (params, callback) {
 			res.status(400).send({ message: "No command found" })
 		}
 	})
-	params.app.delete('/pindealbee/unpin/:id/:tid', checkAdminAndModMiddleware, async function (req, res) {
+	router.delete('/pindealbee/unpin/:id/:tid', checkAdminAndModMiddleware, async function (req, res) {
 		var topicCid = await topics.getTopicField(req.params.tid, ['cid']);
 		var canUnpin = req.modOfCids.find(e => e == topicCid.toString());
 		if (!canUnpin) {
@@ -91,7 +91,7 @@ plugin.init = function (params, callback) {
 		else
 			res.status(400).send({ message: "Fail to unpin" });
 	})
-	params.app.post('/pindealbee/preview/update-view', checkAdminAndModMiddleware, pagePreviewMiddleware, function(req,res){
+	router.post('/pindealbee/preview/update-view', checkAdminAndModMiddleware, pagePreviewMiddleware, function(req,res){
 		params.app.render('pagePreview.tpl', { positionTypes: req.positionData.positionTypes},function(err, html){
 			res.status(200).send(html);
 		});

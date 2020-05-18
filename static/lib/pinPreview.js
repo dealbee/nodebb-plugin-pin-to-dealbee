@@ -15,6 +15,7 @@ $(document).ready(function () {
 });
 $(window).on('action:ajaxify.end', function (event, data) {
 	if (data.url == 'pindealbee') {
+		$('#page-preview-btn').attr('href',config.relative_path+"/pindealbee/preview")
 		renderDataContainer();
 		$('#querryBtn').on('click', function () {
 			renderDataContainer();

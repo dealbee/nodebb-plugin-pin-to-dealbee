@@ -48,7 +48,7 @@
     </div>
     <div class="container data" id="data-container">
     </div>
-    <a href="/pindealbee/preview" target="_blank" class="btn btn-success" id="page-preview-btn">
+    <a href="" target="_blank" class="btn btn-success" id="page-preview-btn">
         <i class="fa fa-2x fa-eye"></i>
     </a>
 </div>
