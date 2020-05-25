@@ -25,8 +25,8 @@
             </td>
             <td>{topics.viewcount}</td>
             <td>{topics.upvotes}</td>
-            <td>{topics.timestampISO}</td>
-            <td>{topics.lastposttimeISO}</td>
+            <td>{topics.timestampISOFormat}</td>
+            <td>{topics.lastposttimeISOFormat}</td>
             <td>
                 <button class="btn btn-primary btn-pin" data-tid={topics.tid} data-category="{topics.category.name}" data-title="{topics.title}">
                     <i class="fa fa-1x fa-thumb-tack"></i>

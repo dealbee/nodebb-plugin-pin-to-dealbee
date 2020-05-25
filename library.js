@@ -13,6 +13,7 @@ const privilegeNames = {
 	canPin: 'pindealbee:event:pin'
 };
 const socketIndex = module.parent.require('./socket.io/index');
+const moment = require('./lib/moment');
 plugin.db = require.main.require('./src/database');
 plugin.topicData = [];
 plugin.init = function (params, callback) {
@@ -52,8 +53,9 @@ plugin.init = function (params, callback) {
 			});
 		}
 		else if (req.body.option == 'submit-pin') {
+			var deleteExit = await plugin.db.client.collection('objects').deleteMany({ _key: /pindealbee:/, tid: parseInt(req.body.tid) });
 			var obj = await plugin.db.setObject(req.body.key, { tid: parseInt(req.body.tid) });
-			res.status(200).send(obj);
+			res.status(200).send({ obj, deleteExit });
 		}
 		else if (req.body.option == 'get-topics-to-pin') {
 			var sort = req.body.sort;
@@ -72,6 +74,13 @@ plugin.init = function (params, callback) {
 			if (catgory != '0') { dataFiltered = dataSort.filter(i => i.cid == catgory); }
 			// name
 			var dataFilterName = dataFiltered.filter(i => i.title.toLowerCase().includes(name.toLowerCase()));
+			dataFilterName.map(e => {
+				if (!e.lastposttimeISOFormat)
+					e.lastposttimeISOFormat = moment.utc(e.lastposttimeISO).format('HH:mm DD-MM-YYYY')
+				if (!e.timestampISOFormat)
+					e.timestampISOFormat = moment.utc(e.timestampISO).format('HH:mm DD-MM-YYYY')
+				return e;
+			})
 			params.app.render('pinPreview/dataContainer', { topics: dataFilterName }, function (err, html) {
 				res.status(200).send(html);
 			});
@@ -92,17 +101,17 @@ plugin.init = function (params, callback) {
 		else
 			res.status(400).send({ message: "Fail to unpin" });
 	})
-	router.post('/pindealbee/preview/update-view', checkAdminAndModMiddleware, pagePreviewMiddleware, function(req,res){
-		params.app.render('pagePreview.tpl', { positionTypes: req.positionData.positionTypes},function(err, html){
+	router.post('/pindealbee/preview/update-view', checkAdminAndModMiddleware, pagePreviewMiddleware, function (req, res) {
+		params.app.render('pagePreview.tpl', { positionTypes: req.positionData.positionTypes }, function (err, html) {
 			res.status(200).send(html);
 		});
 	})
 	modulesSockets.pindealbeePin = function (socket, data, callback) {
-		socketIndex.server.sockets.emit('pin-post',data);
+		socketIndex.server.sockets.emit('pin-post', data);
 	};
 	modulesSockets.pindealbeeUnpin = function (socket, data, callback) {
 		// socket.broadcast.emit('unpin-post',data)
-		socketIndex.server.sockets.emit('unpin-post',data);
+		socketIndex.server.sockets.emit('unpin-post', data);
 	};
 	// modulesSockets.submitPin = function (socket, data, callback) {
 	// 	// plugin.db.sortedSetAdd('users:reputationnn', 200, "127.0.0.0.1"); //score value

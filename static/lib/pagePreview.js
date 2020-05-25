@@ -5,7 +5,7 @@ $(document).ready(function () {
 $(window).on('action:ajaxify.end', function (event, data) {
     if (data.url == 'pindealbee/preview') {
         socket.on('unpin-post', function (data) {
-            console.log(data);
+            // console.log(data);
             app.alert({
                 type: 'info',
                 title: 'topic unpin',
@@ -18,13 +18,13 @@ $(window).on('action:ajaxify.end', function (event, data) {
                     $('#content').append(res);
                     $('.unpin-btn').on('click', functionUnpin)
                     var divChange = $('button[data-posid="' + data.posId + '"][data-typeid="' + data.typeId + '"]').parent().parent();
-                    console.log(divChange);
+                    // console.log(divChange);
                     divChange.css("box-shadow", "0px 0px 5px #fda34b")
                     changeHref()
                 })
         });
         socket.on('pin-post', function (data) {
-            console.log(data);
+            // console.log(data);
             app.alert({
                 type: 'success',
                 title: 'topic pin',

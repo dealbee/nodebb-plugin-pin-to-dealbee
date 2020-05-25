@@ -68,7 +68,7 @@ function renderDataContainer() {
 			});
 		}
 	}).fail(function (err) {
-		console.log(err);
+		// console.log(err);
 	})
 }
 var submitFunc = function () {

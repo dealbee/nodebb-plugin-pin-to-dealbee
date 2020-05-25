@@ -28,7 +28,7 @@ $(window).on('action:ajaxify.end', function (event, data) {
 							$('body').append(result);
 							$('#pinChoose').css('display', 'block');
 							$('#pinChoose span.close').click(function (e) {
-								console.log('closing');
+								// console.log('closing');
 								$('#pinChoose').css('display', 'none');
 							});
 							$('button#submitPin').on('click', function (e) {
