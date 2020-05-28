@@ -1,0 +1,44 @@
+{
+    "title-pin-choose":"Chọn & ghim",
+    "title-page-preview":"Xem trước",
+
+    "pinpreview-title": "Ghim bài viết lên trang Dealbee",
+    "pinpreview-sorted":"Sắp xếp theo:",
+    "pinpreview-filtered":"Lọc theo chủ đề:",
+    "pinpreview-matched":"Tìm kiếm bằng tên:",
+    "pinpreview-filtered-newest":"Mới nhất",
+    "pinpreview-filtered-oldest":"Cũ nhất",
+    "pinpreview-filtered-most-liked":"Quan tâm nhất",
+    "pinpreview-filtered-most-viewd":"Xem nhiều nhất",
+    "pinpreview-sorted-all":"Tất cả",
+    "pinpreview-query":"Tìm kiếm",
+    "pinpreview-matched-placeholder":"Tên bài viết",
+
+    "data-container-topic-id":"ID",
+    "data-container-category":"Chủ đề",
+    "data-container-title":"Tiêu đề",
+    "data-container-view":"Lượt xem",
+    "data-container-upvote":"Lượt thích",
+    "data-container-time-created":"Tạo lúc",
+    "data-container-time-modified":"Chỉnh sửa lúc",
+
+    "pinchoose-title":"Chọn vị trí",
+    "pinchoose-submit":"Xác nhận",
+    
+    "pagepreview-title":"Trang xem trước các bài viết được ghim lên Dealbee",
+    "pagepreview-category":"Chủ đề",
+    "pagepreview-empty":"Tiêu đề trống",
+    "pagepreview-nocontent":"Nội dung trống",
+
+    "alert-success":"Thành công",
+    "alert-pin-successfully":"Ghim thành công",
+    "alert-pin-successfully-message":"Bài viết vừa được ghim lên trang Dealbee",
+    "alert-pin-failed":"Ghim thất bại",
+    "alert-choose-position":"Vui lòng chọn vị trí",
+
+    "alert-unpin":"Chủ đề vừa được bỏ ghim",
+    "alert-pin":"Chủ đề vừa được ghim",
+    "alert-unpin-fail":"Bỏ ghim chủ đề thất bại",
+    "alert-confirm":"Xác nhận",
+    "alert-confirm-meesage":"Thật sự muốn bỏ ghim bài viết này?"
+}

@@ -1,5 +1,5 @@
 <div class="container" id="pagePreview">
-    <h1>Dealbee homepage preview</h1>
+    <h1>[[pindealbee:pagepreview-title]]</h1>
     <!-- BEGIN positionTypes -->
     <h2 class="position-type">{positionTypes.positionName}</h2>
     <div class="row">
@@ -20,7 +20,7 @@
                             {positionTypes.positions.topicData.title}
                         </a>
                     </h5>
-                    <h6 class="category-name">Category: {positionTypes.positions.topicData.category.name}</h6>
+                    <h6 class="category-name">[[pindealbee:pagepreview-category]]: {positionTypes.positions.topicData.category.name}</h6>
                 </div>
             </div>
             <!-- ENDIF positionTypes.positions.topicData -->
@@ -32,8 +32,8 @@
                 </span>
                 <div class="card-body">
                     <h5 class="position">{positionTypes.positions.description}</h5>
-                    <h5 class="card-title">Empty</h5>
-                    <h6 class="category-name">No content to display</h6>
+                    <h5 class="card-title">[[pindealbee:pagepreview-empty]]</h5>
+                    <h6 class="category-name">[[pindealbee:pagepreview-nocontent]]</h6>
                 </div>
             </div>
             <!-- ENDIF !positionTypes.positions.topicData -->

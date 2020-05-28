@@ -8,37 +8,45 @@ $(window).on('action:ajaxify.end', function (event, data) {
             // console.log(data);
             app.alert({
                 type: 'info',
-                title: 'topic unpin',
+                title: '[[pindealbee:alert-unpin]]',
                 message: '<strong>' + data.title + '</strong></br>' + data.category,
                 timeout: 10000
             });
             $.post(config.relative_path + '/pindealbee/preview/update-view', null)
                 .done(function (res) {
                     $('#content').empty();
-                    $('#content').append(res);
-                    $('.unpin-btn').on('click', functionUnpin)
-                    var divChange = $('button[data-posid="' + data.posId + '"][data-typeid="' + data.typeId + '"]').parent().parent();
-                    // console.log(divChange);
-                    divChange.css("box-shadow", "0px 0px 5px #fda34b")
-                    changeHref()
+                    require(['translator'], function (translator) {
+                        translator.translate(res, function (translated) {
+                            $('#content').append(translated);
+                            $('.unpin-btn').on('click', functionUnpin)
+                            var divChange = $('button[data-posid="' + data.posId + '"][data-typeid="' + data.typeId + '"]').parent().parent();
+                            // console.log(divChange);
+                            divChange.css("box-shadow", "0px 0px 5px #fda34b")
+                            changeHref()
+                        })
+                    })
                 })
         });
         socket.on('pin-post', function (data) {
             // console.log(data);
             app.alert({
                 type: 'success',
-                title: 'topic pin',
+                title: '[[pindealbee:alert-pin]]',
                 message: '<strong>' + data.title + '</strong></br>' + data.category,
                 timeout: 10000
             });
             $.post(config.relative_path + '/pindealbee/preview/update-view', null)
                 .done(function (res) {
                     $('#content').empty();
-                    $('#content').append(res);
-                    $('.unpin-btn').on('click', functionUnpin)
-                    var divChange = $('button[data-posid="' + data.posId + '"][data-typeid="' + data.typeId + '"]').parent().parent();
-                    divChange.css("box-shadow", "0px 0px 5px #337ab7")
-                    changeHref()
+                    require(['translator'], function (translator) {
+                        translator.translate(res, function (translated) {
+                            $('#content').append(translated);
+                            $('.unpin-btn').on('click', functionUnpin)
+                            var divChange = $('button[data-posid="' + data.posId + '"][data-typeid="' + data.typeId + '"]').parent().parent();
+                            divChange.css("box-shadow", "0px 0px 5px #337ab7")
+                            changeHref()
+                        })
+                    })
                 })
         });
         $('.unpin-btn').on('click', functionUnpin)
@@ -52,8 +60,8 @@ var functionUnpin = function () {
     var title = $(this).parent().parent().find(".card-title").text()
     var category = $(this).parent().parent().find(".category-name").text()
     bootbox.confirm({
-        title: "Confirmation",
-        message: "Do you want to unpin this topic?",
+        title: "[[pindealbee:alert-confirm]]",
+        message: "[[pindealbee:alert-confirm-meesage]]",
         callback: function (ok) {
             if (ok) {
                 $.ajax({
@@ -71,7 +79,7 @@ var functionUnpin = function () {
                             });
                     })
                     .fail(function (res) {
-                        app.alertError('Unpin fail')
+                        app.alertError('[[pindealbee:alert-unpin-fail]]')
                     })
             }
         }

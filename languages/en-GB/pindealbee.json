@@ -1,0 +1,44 @@
+{
+    "title-pin-choose":"Posts to pin",
+    "title-page-preview":"Dealbee preview",
+    "pinpreview-title": "List of posts to pin on Dealbee",
+    "pinpreview-sorted":"Sorted by:",
+    "pinpreview-filtered":"Filtered by category:",
+    "pinpreview-matched":"Matched by name:",
+    "pinpreview-filtered-newest":"Newest",
+    "pinpreview-filtered-oldest":"Oldest",
+    "pinpreview-filtered-most-liked":"Most liked",
+    "pinpreview-filtered-most-viewd":"Most viewed",
+    "pinpreview-sorted-all":"All",
+    "pinpreview-query":"Query",
+    "pinpreview-matched-placeholder":"Topic's name",
+
+    "data-container-topic-id":"ID",
+    "data-container-category":"Category",
+    "data-container-title":"Title",
+    "data-container-view":"View",
+    "data-container-upvote":"Upvote",
+    "data-container-time-created":"Time created",
+    "data-container-time-modified":"Last modified",
+
+    "pinchoose-title":"Choose a position",
+    "pinchoose-submit":"Confirm",
+
+    "pagepreview-title":"Dealbee homepage preview",
+    "pagepreview-category":"Category",
+    "pagepreview-empty":"Empty",
+    "pagepreview-nocontent":"No content to display",
+
+    "alert-success":"Success",
+    "alert-pin-successfully":"Pin successfully",
+    "alert-pin-successfully-message":"This post has been pinned on Dealbee",
+    "alert-pin-failed":"Pin fail",
+    "alert-choose-position":"Please choose a position",
+
+    "alert-unpin":"Topic unpin",
+    "alert-pin":"Topic pin",
+    "alert-unpin-fail":"Unpin fail",
+    "alert-confirm":"Confirmation",
+    "alert-confirm-meesage":"Do you want to unpin this topic?"
+
+}

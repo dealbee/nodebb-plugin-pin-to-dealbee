@@ -1,13 +1,13 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Topic id</th>
-            <th scope="col">Category</th>
-            <th scope="col">Title</th>
-            <th scope="col">View</th>
-            <th scope="col">Upvote</th>
-            <th scope="col">Time created</th>
-            <th scope="col">Time modified</th>
+            <th scope="col">[[pindealbee:data-container-topic-id]]</th>
+            <th scope="col">[[pindealbee:data-container-category]]</th>
+            <th scope="col">[[pindealbee:data-container-title]]</th>
+            <th scope="col">[[pindealbee:data-container-view]]</th>
+            <th scope="col">[[pindealbee:data-container-upvote]]</th>
+            <th scope="col">[[pindealbee:data-container-time-created]]</th>
+            <th scope="col">[[pindealbee:data-container-time-modified]]</th>
             <th scope="col"></th>
         </tr>
     </thead>

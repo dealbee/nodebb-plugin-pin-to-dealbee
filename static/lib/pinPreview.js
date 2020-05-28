@@ -38,35 +38,39 @@ function renderDataContainer() {
 		name: nameOp
 	}).done(function (result) {
 		dataContainer.empty();
-		dataContainer.append(result);
-		var buttonPins = $('button.btn-pin');
-		for (var i = 0; i < buttonPins.length; i++) {
-			buttonPins[i].addEventListener('click', function () {
-				var thisButton = $(this);
-				var pinModal = $('#pinChoose');
-				pinModal.remove();
-				$.post(config.relative_path + '/pindealbee', { option: "render-pin-choose" })
-					.done(function (result) {
-						// result is html text
-						$('body').append(result);
-						$('#pinChoose').css('display', 'block');
-						$('#pinChoose').attr('data-tid', thisButton.data('tid'));
-						$('#pinChoose').attr('data-title', thisButton.data('title'));
-						$('#pinChoose').attr('data-category', thisButton.data('category'));
+		require(['translator'], function (translator) {
+			translator.translate(result, function (translated) {
+				dataContainer.append(translated);
+				var buttonPins = $('button.btn-pin');
+				for (var i = 0; i < buttonPins.length; i++) {
+					buttonPins[i].addEventListener('click', function () {
+						var thisButton = $(this);
+						var pinModal = $('#pinChoose');
+						pinModal.remove();
+						$.post(config.relative_path + '/pindealbee', { option: "render-pin-choose" })
+							.done(function (result) {
+								// result is html text
+								require(['translator'], function (translator) {
+									translator.translate(result, function (translated) {
+										$('body').append(translated);
+										$('#pinChoose').css('display', 'block');
+										$('#pinChoose').attr('data-tid', thisButton.data('tid'));
+										$('#pinChoose').attr('data-title', thisButton.data('title'));
+										$('#pinChoose').attr('data-category', thisButton.data('category'));
 
-						$('#pinChoose span.close').click(function (e) {
-							// console.log('closing');
-							$('#pinChoose').css('display', 'none');
-						});
-						$('button#submitPin').on('click', submitFunc);
-					})
-
-				// }
-				// else {
-				//     pinModal.css("display", "block");
-				// }
+										$('#pinChoose span.close').click(function (e) {
+											// console.log('closing');
+											$('#pinChoose').css('display', 'none');
+										});
+										$('button#submitPin').on('click', submitFunc);
+									})
+								})
+							})
+					});
+				}
 			});
-		}
+		});
+
 	}).fail(function (err) {
 		// console.log(err);
 	})
@@ -90,8 +94,8 @@ var submitFunc = function () {
 			.done(function (res) {
 				app.alert({
 					type: 'success',
-					title: '<i class="fa fa-1x fa-thumb-tack"></i> Pin successfully',
-					message: 'This post has been pinned on Dealbee',
+					title: '<i class="fa fa-1x fa-thumb-tack"></i> [[pindealbee:alert-pin-successfully]]',
+					message: '[[pindealbee:alert-pin-successfully-message]]',
 					timeout: 5000
 				});
 				socket.emit('modules.pindealbeePin',
@@ -99,12 +103,12 @@ var submitFunc = function () {
 						typeId: $('#pinChoose .modal-content-body input:checked').data('type'),
 						posId: $('#pinChoose .modal-content-body input:checked').data('position'),
 						title: $('#pinChoose').data('title'),
-						category: "Category: " + $('#pinChoose').data('category')
+						category: "[[pindealbee:pagepreview-category]]: " + $('#pinChoose').data('category')
 					}, function (err, result) {
 					});
 			})
 			.fail(function (res) {
-				app.alertError('Pin fail')
+				app.alertError('[[pindealbee:alert-pin-failed]]')
 			})
-	} else { alert('Please choose position'); }
+	} else { alert('[[pindealbee:alert-choose-position]]'); }
 };

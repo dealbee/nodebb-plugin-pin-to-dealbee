@@ -3,7 +3,9 @@
     <div class="modal-content">
         <div class="modal-content-header">
             <span class="close">&times;</span>
-            <h2>Choose position</h2>
+            <h2>
+                [[pindealbee:pinchoose-title]]
+            </h2>
         </div>
         <div class="modal-content-body">
             <form>
@@ -26,7 +28,7 @@
 
             <div class="row" style="display:flex; justify-content: center; margin-top:20px;">
                 <h4>
-                    <button class="btn btn-success" id="submitPin">Submit</button>
+                    <button class="btn btn-success" id="submitPin">[[pindealbee:pinchoose-submit]]</button>
                 </h4>
             </div>
         </div>

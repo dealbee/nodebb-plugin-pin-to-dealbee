@@ -2,6 +2,8 @@
 	"id": "nodebb-plugin-pin-to-dealbee",
 	"url": "https://github.com/NodeBB/nodebb-plugin-pin-to-dealbee",
 	"library": "./library.js",
+	"languages": "languages",
+	"defaultLang": "en-GB",
 	"hooks": [
 		{
 			"hook": "static:app.load",

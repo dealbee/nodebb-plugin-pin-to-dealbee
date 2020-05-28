@@ -1,17 +1,17 @@
 <div class="container" id="pinPreview">
     <h1>
-        Lists of posts to pin on Dealbee
+        [[pindealbee:pinpreview-title]]
     </h1>
     <div class="container filter">
         <div class="row">
             <div class="col-xs-3">
-                <label for="filter-dropbox">Sorted by:</label>
+                <label for="filter-dropbox">[[pindealbee:pinpreview-sorted]]</label>
             </div>
             <div class="col-xs-3">
-                <label for="filter-categories-dropbox">Filtered by catrgory:</label>
+                <label for="filter-categories-dropbox">[[pindealbee:pinpreview-filtered]]</label>
             </div>
             <div class="col-xs-3">
-                <label for="filter-name-input">Matched by name</label>
+                <label for="filter-name-input">[[pindealbee:pinpreview-matched]]</label>
             </div>
             <div class="col-xs-3">
 
@@ -20,10 +20,10 @@
         <div class="row">
             <div class="col-xs-3">
                 <select id="filter-dropbox" class="form-control">
-                    <option value="newest" selected>Newest</option>
-                    <option value="oldest">Oldest</option>
-                    <option value="mostviewed">Most viewed</option>
-                    <option value="mostliked">Most liked</option>
+                    <option value="newest" selected>[[pindealbee:pinpreview-filtered-newest]]</option>
+                    <option value="oldest">[[pindealbee:pinpreview-filtered-oldest]]</option>
+                    <option value="mostviewed">[[pindealbee:pinpreview-filtered-most-liked]]</option>
+                    <option value="mostliked">[[pindealbee:pinpreview-sorted-all]]</option>
                 </select>
             </div>
             <div class="col-xs-3">
@@ -34,15 +34,15 @@
                     </option>
                     <!-- END categories -->
                     <option value=0 data-cid=0 selected>
-                        All
+                    [[pindealbee:pinpreview-sorted-all]]
                     </option>
                 </select>
             </div>
             <div class="col-xs-3">
-                <input class="form-control" type="text" placeholder="Topic name" id="filter-name-input">
+                <input class="form-control" type="text" placeholder="[[pindealbee:pinpreview-matched-placeholder]]" id="filter-name-input">
             </div>
             <div class="col-xs-3">
-                <button class="btn btn-primary" id="querryBtn">Query</button>
+                <button class="btn btn-primary" id="querryBtn">[[pindealbee:pinpreview-query]]</button>
             </div>
         </div>
     </div>
