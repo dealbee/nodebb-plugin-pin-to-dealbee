@@ -1,0 +1,66 @@
+{
+  "areas": [
+    {
+      "id": "area001",
+      "name": "Area 1",
+      "positions": [
+        {
+          "id": "pos001",
+          "name": "position 1",
+          "description": "Position 1"
+        },
+        {
+          "id": "pos002",
+          "name": "position 2",
+          "description": "Position 2"
+        },
+        {
+          "id": "pos003",
+          "name": "position 3",
+          "description": "Position 3"
+        },
+        {
+          "id": "pos004",
+          "name": "position 4",
+          "description": "Position 4"
+        },
+        {
+          "id": "pos005",
+          "name": "position 5",
+          "description": "Position 5"
+        }
+      ]
+    },
+    {
+      "id": "area002",
+      "name": "Area 2",
+      "positions": [
+        {
+          "id": "pos006",
+          "name": "position 1",
+          "description": "Position 1"
+        },
+        {
+          "id": "pos007",
+          "name": "position 2",
+          "description": "Position 2"
+        },
+        {
+          "id": "pos008",
+          "name": "position 3",
+          "description": "Position 3"
+        },
+        {
+          "id": "pos009",
+          "name": "position 4",
+          "description": "Position 4"
+        },
+        {
+          "id": "pos010",
+          "name": "position 5",
+          "description": "Position 5"
+        }
+      ]
+    }
+  ]
+}

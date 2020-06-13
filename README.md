@@ -9,7 +9,7 @@ Vị trí button Pin trong mỗi bài viết</br>
 
 ## Dữ liệu về sơ đồ bố trí bài viết trên trang chủ Dealbee
 
-Vì dữ liệu về sơ đồ bố trí bài viết trên trang chủ Dealbee là không cố định, vì vậy dữ liệu này được lưu trong file [positionData](/lib/positionData.js)
+Vì dữ liệu về sơ đồ bố trí bài viết trên trang chủ Dealbee là không cố định, vì vậy dữ liệu này được lưu trong file [positionData](/lib/positionData.json)
 
 Sơ đồ bài viết trong dữ liệu mẫu đang được gom nhóm thành loại (type) và ví trí (position).
 Nói một cách dễ hiểu, mỗi loại sẽ có nhiều vị trí.

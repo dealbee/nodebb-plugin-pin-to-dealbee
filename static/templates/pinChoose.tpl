@@ -10,19 +10,19 @@
         <div class="modal-content-body">
             <form>
                 <div class="row">
-                    <!-- BEGIN positionTypes -->
+                    <!-- BEGIN areas -->
                     <h4 class="container">
-                        {positionTypes.positionName}
+                        {areas.name}
                     </h4>
                     <div class="container">
-                        <!-- BEGIN positionTypes.positions -->
+                        <!-- BEGIN areas.positions -->
                         <label class="radio-inline">
-                            <input type="radio" name="pinChoose" data-type={positionTypes.id} data-position={positionTypes.positions.id}>
-                            <span class="badge badge-primary">{positionTypes.positions.description}</span>
+                            <input type="radio" name="pinChoose" data-type={areas.id} data-position={areas.positions.id}>
+                            <span class="badge badge-primary">{areas.positions.description}</span>
                         </label>
-                        <!-- END positionTypes.positions -->
+                        <!-- END areas.positions -->
                     </div>
-                    <!-- END positionTypes -->
+                    <!-- END areas -->
                 </div>
             </form>
 

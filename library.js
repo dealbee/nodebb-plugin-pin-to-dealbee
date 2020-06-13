@@ -8,7 +8,7 @@ const modulesSockets = module.parent.require('./socket.io/modules');
 const topics = require.main.require('./src/topics');
 const user = require.main.require('./src/user');
 const plugin = {};
-const position = require('./lib/positionData.js');
+const position = require('./lib/positionData.json');
 const privilegeNames = {
 	canPin: 'pindealbee:event:pin'
 };
@@ -48,7 +48,7 @@ plugin.init = function (params, callback) {
 			}
 		}
 		else if (req.body.option == 'render-pin-choose') {
-			params.app.render('pinChoose', position.buttonsData, function (err, html) {
+			params.app.render('pinChoose', position, function (err, html) {
 				res.status(200).send(html);
 			});
 		}
@@ -102,7 +102,7 @@ plugin.init = function (params, callback) {
 			res.status(400).send({ message: "Fail to unpin" });
 	})
 	router.post('/pindealbee/preview/update-view', checkAdminAndModMiddleware, pagePreviewMiddleware, function (req, res) {
-		params.app.render('pagePreview.tpl', { positionTypes: req.positionData.positionTypes }, function (err, html) {
+		params.app.render('pagePreview.tpl', { areas: req.positionData.areas }, function (err, html) {
 			res.status(200).send(html);
 		});
 	})
@@ -218,9 +218,9 @@ var checkAdminAndModMiddleware = async function (req, res, next) {
 	}
 }
 var pagePreviewMiddleware = async function (req, res, next) {
-	var positionData = position.buttonsData;
+	var positionData = position;
 	var positionKeys = []
-	positionData.positionTypes.map(e => e.positions.map(i => {
+	positionData.areas.map(e => e.positions.map(i => {
 		i._key = "pindealbee:" + e.id + ":" + i.id;
 		positionKeys.push(i._key);
 		return i;
@@ -250,7 +250,7 @@ var pagePreviewMiddleware = async function (req, res, next) {
 		})
 		return e;
 	})
-	positionData.positionTypes.map(e => e.positions.map(i => {
+	positionData.areas.map(e => e.positions.map(i => {
 		var tData = postionTids.find(k => {
 			return k._key == i._key
 		})
