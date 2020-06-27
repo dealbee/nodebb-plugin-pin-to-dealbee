@@ -77,9 +77,9 @@ function renderDataContainer() {
 }
 var submitFunc = function () {
 	var key = 'pindealbee:' +
-		$('#pinChoose .modal-content-body input:checked').data('type') +
+		$('#pinChoose .modal-body input:checked').data('type') +
 		':' +
-		$('#pinChoose .modal-content-body input:checked').data('position');
+		$('#pinChoose .modal-body input:checked').data('position');
 	var topicId = $('#pinChoose').data('tid');
 	var dataStore = {
 		option: "submit-pin",
@@ -88,7 +88,7 @@ var submitFunc = function () {
 	};
 	// console.log(dataStore);
 	$('#pinChoose span.close').trigger('click');
-	if ($('#pinChoose .modal-content-body input:checked').data('type')) {
+	if ($('#pinChoose .modal-body input:checked').data('type')) {
 		$('#pinChoose span.close').trigger('click');
 		$.post(config.relative_path + '/pindealbee', dataStore)
 			.done(function (res) {
@@ -100,8 +100,8 @@ var submitFunc = function () {
 				});
 				socket.emit('modules.pindealbeePin',
 					{
-						typeId: $('#pinChoose .modal-content-body input:checked').data('type'),
-						posId: $('#pinChoose .modal-content-body input:checked').data('position'),
+						typeId: $('#pinChoose .modal-body input:checked').data('type'),
+						posId: $('#pinChoose .modal-body input:checked').data('position'),
 						title: $('#pinChoose').data('title'),
 						category: "[[pindealbee:pagepreview-category]]: " + $('#pinChoose').data('category')
 					}, function (err, result) {
