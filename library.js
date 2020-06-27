@@ -57,11 +57,9 @@ plugin.init = function (params, callback) {
             })
             await plugin.db.client.collection('objects').deleteMany({_key: {$regex: `pindealbee:${typeId}:`}});
             let tids = [parseInt(req.body.tid), ...topics];
-            console.log(tids);
             let posistionIds = position.areas.find(x => x.id === typeId).positions.map(e => {
                 return e.id;
             })
-            console.log(posistionIds)
             try {
                 if (posistionIds.length >= tids.length) {
                     plugin.asyncForEach(tids, async (tid, i) => {
