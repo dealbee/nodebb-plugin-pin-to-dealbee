@@ -46,11 +46,13 @@
 	"scripts": [
 		"static/lib/pinChoose.js",
 		"static/lib/pinPreview.js",
-		"static/lib/pagePreview.js",
-		"lib/pagination.min.js"
+		"static/lib/pagePreview.js"
 	],
 	"acpScripts": [
 		"static/lib/admin.js"
 	],
-	"templates": "static/templates"
+	"templates": "static/templates",
+	"modules": {
+		"pagination.js": "lib/pagination.js"
+	}
 }

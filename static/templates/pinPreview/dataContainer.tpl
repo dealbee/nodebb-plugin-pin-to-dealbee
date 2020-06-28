@@ -2,10 +2,10 @@
     <thead>
         <tr>
             <th scope="col">[[pindealbee:data-container-topic-id]]</th>
-            <th scope="col">[[pindealbee:data-container-category]]</th>
+            <th scope="col" style="text-align: center">[[pindealbee:data-container-category]]</th>
             <th scope="col">[[pindealbee:data-container-title]]</th>
-            <th scope="col">[[pindealbee:data-container-view]]</th>
-            <th scope="col">[[pindealbee:data-container-upvote]]</th>
+            <th scope="col" style="text-align: center">[[pindealbee:data-container-view]]</th>
+            <th scope="col" style="text-align: center">[[pindealbee:data-container-upvote]]</th>
             <th scope="col">[[pindealbee:data-container-time-created]]</th>
             <th scope="col">[[pindealbee:data-container-time-modified]]</th>
             <th scope="col"></th>
@@ -27,8 +27,8 @@
                     </strong>
                 </a>
             </td>
-            <td>{topics.viewcount}</td>
-            <td>{topics.upvotes}</td>
+            <td style="text-align: center">{topics.viewcount}</td>
+            <td style="text-align: center">{topics.upvotes}</td>
             <td>{topics.timestampISOFormat}</td>
             <td>{topics.lastposttimeISOFormat}</td>
             <td>
