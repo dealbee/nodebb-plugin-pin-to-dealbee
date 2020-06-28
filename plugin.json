@@ -40,12 +40,14 @@
 	"less": [
 		"static/stylePinChoose.less",
 		"static/stylePinPreview.less",
-		"static/pagePreview.less"
+		"static/pagePreview.less",
+		"static/pagination.less"
 	],
 	"scripts": [
 		"static/lib/pinChoose.js",
 		"static/lib/pinPreview.js",
-		"static/lib/pagePreview.js"
+		"static/lib/pagePreview.js",
+		"lib/pagination.min.js"
 	],
 	"acpScripts": [
 		"static/lib/admin.js"

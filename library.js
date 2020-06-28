@@ -9,6 +9,7 @@ const topics = require.main.require('./src/topics');
 const user = require.main.require('./src/user');
 const plugin = {};
 const position = require('./lib/positionData.json');
+const async = module.parent.require('async');
 const privilegeNames = {
     canPin: 'pindealbee:event:pin'
 };
@@ -23,7 +24,6 @@ plugin.init = function (params, callback) {
         checkAdminAndModMiddleware,
         pinPreviewMiddleware,
         hostMiddleware.buildHeader,
-        // controllers.renderAdminPage,
         controllers.renderPinChoosePage
     );
     router.get('/pindealbee/preview', checkAdminAndModMiddleware, pagePreviewMiddleware, hostMiddleware.buildHeader, controllers.renderPreviewPage)
@@ -73,7 +73,7 @@ plugin.init = function (params, callback) {
             } catch (e) {
                 return res.status(400).send({message: e});
             }
-            return res.status(200).send({message:'pin successfully'});
+            return res.status(200).send({message: 'pin successfully'});
         } else if (req.body.option == 'get-topics-to-pin') {
             var sort = req.body.sort;
             var catgory = req.body.category;
@@ -133,6 +133,106 @@ plugin.init = function (params, callback) {
             res.status(200).send(html);
         });
     })
+    modulesSockets.getTopics = function (socket, data, callback) {
+        console.log(data)
+        let sort = {};
+        let match = {_key: {$regex: "topic:"}};
+        let limit = data.limit;
+        let skip = data.skip;
+        //sort
+        if (data.sortedOp === 'oldest') {
+            sort.timestamp = 1;
+        } else if (data.sortedOp === 'mostviewed') {
+            sort.viewcount = -1;
+        } else if (data.sortedOp === 'mostliked') {
+            sort.upvotes = -1;
+        } else {
+            sort.timestamp = -1;
+        }
+        //match
+        match.titleUpper = {$regex: data.nameOp.toUpperCase()};
+        //cid
+        if (data.categoryOp != '0') {
+            match.cid = parseInt(data.categoryOp);
+        }
+        let topics = [];
+        let total = 0;
+        async.waterfall([
+            async function (next) {
+                topics = await plugin.db.client.collection('objects').aggregate([
+                    {
+                        $addFields:
+                            {
+                                titleUpper: {
+                                    $toUpper: "$title"
+                                },
+                                categoryKey: {
+                                    $concat: ['category:', {$toString: '$cid'}]
+                                }
+                            }
+                    },
+                    {
+                        $lookup: {
+                            from: 'objects',
+                            localField: 'categoryKey',
+                            foreignField: '_key',
+                            as: 'category'
+                        }
+                    },
+                    {$match: match},
+                    {$sort: sort},
+                    {$skip: skip},
+                    {$limit: limit}
+                ]).toArray();
+                total = await plugin.db.client.collection('objects').aggregate([
+                    {
+                        $addFields:
+                            {
+                                titleUpper: {
+                                    $toUpper: "$title"
+                                },
+                                categoryKey: {
+                                    $concat: ['category:', {$toString: '$cid'}]
+                                }
+                            }
+                    },
+                    {
+                        $lookup: {
+                            from: 'objects',
+                            localField: 'categoryKey',
+                            foreignField: '_key',
+                            as: 'category'
+                        }
+                    },
+                    {$match: match},
+                    {$count: "total"}
+                ]).toArray();
+                if (total.length === 0) {
+                    total = 0;
+                } else {
+                    total = total[0].total;
+                }
+                next(null, null)
+            }
+        ], function (err, res) {
+            topics.map(e => {
+                if (!e.lastposttimeISOFormat)
+                    e.lastposttimeISOFormat = moment.utc(e.lastposttimeISO).format('HH:mm DD-MM-YYYY')
+                if (!e.timestampISOFormat)
+                    e.timestampISOFormat = moment.utc(e.timestampISO).format('HH:mm DD-MM-YYYY')
+                e.category = e.category[0];
+                if (!e.upvotes) {
+                    e.upvotes = 0;
+                }
+                delete e.categoryKey;
+                return e;
+            })
+            console.log(topics)
+            params.app.render('pinPreview/dataContainer', {topics, total}, function (err, html) {
+                callback(err, html);
+            });
+        });
+    }
     modulesSockets.pindealbeePin = function (socket, data, callback) {
         socketIndex.server.sockets.emit('pin-post', data);
     };
@@ -192,8 +292,6 @@ var pinPreviewMiddleware = async function (req, res, next) {
     var modOfCateories = await categories.getCategories(req.modOfCids, req.uid);
     req.modOfCateories = modOfCateories;
     plugin.topicData = querryDatas;
-    // console.log(plugin.topicData);
-    // console.log(plugin.modOfCateories);
     next();
 };
 // var checkAdminAndModMiddleware = async function (req, res, next) {

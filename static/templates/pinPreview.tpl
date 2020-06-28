@@ -22,8 +22,8 @@
                 <select id="filter-dropbox" class="form-control">
                     <option value="newest" selected>[[pindealbee:pinpreview-filtered-newest]]</option>
                     <option value="oldest">[[pindealbee:pinpreview-filtered-oldest]]</option>
-                    <option value="mostviewed">[[pindealbee:pinpreview-filtered-most-liked]]</option>
-                    <option value="mostliked">[[pindealbee:pinpreview-sorted-all]]</option>
+                    <option value="mostviewed">[[pindealbee:pinpreview-filtered-most-viewd]]</option>
+                    <option value="mostliked">[[pindealbee:pinpreview-filtered-most-liked]]</option>
                 </select>
             </div>
             <div class="col-xs-3">
@@ -47,6 +47,10 @@
         </div>
     </div>
     <div class="container data" id="data-container">
+    </div>
+
+    <div id="pagination" data-total = {total}>
+
     </div>
     <a href="" target="_blank" class="btn btn-success" id="page-preview-btn">
         <i class="fa fa-2x fa-eye"></i>

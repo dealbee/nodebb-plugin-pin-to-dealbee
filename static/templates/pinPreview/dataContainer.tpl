@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table" data-total = {total}>
     <thead>
         <tr>
             <th scope="col">[[pindealbee:data-container-topic-id]]</th>
@@ -15,8 +15,12 @@
         <!-- BEGIN topics -->
         <tr>
             <td>{topics.tid}</td>
-            <td>{topics.category.name}</td>
-            <td>
+            <td style="text-align: center">
+                <div class="custom-badge" style="background-color: {topics.category.bgColor}; color: {topics.category.color}">
+                    {topics.category.name}
+                </div>
+            </td>
+            <td style="max-width: 260px">
                 <a href="/topic/{topics.tid}" target="_blank">
                     <strong>
                         {topics.title}
