@@ -32,6 +32,18 @@
 		{
 			"hook": "filter:privileges.groups.list_human",
 			"method": "privilegesListHuman"
+		},
+		{
+			"hook": "filter:homepage.get",
+			"method": "addListing"
+		},
+		{
+			"hook": "filter:widgets.getAreas",
+			"method": "defineWidgetAreas"
+		},
+		{
+			"hook": "action:homepage.get:front-page",
+			"method": "serveFrontPage"
 		}
 	],
 	"staticDirs": {
@@ -41,7 +53,8 @@
 		"static/stylePinChoose.less",
 		"static/stylePinPreview.less",
 		"static/pagePreview.less",
-		"static/pagination.less"
+		"static/pagination.less",
+		"static/frontPage.less"
 	],
 	"scripts": [
 		"static/lib/pinChoose.js",

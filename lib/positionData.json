@@ -2,7 +2,7 @@
   "areas": [
     {
       "id": "area001",
-      "name": "Area 1",
+      "name": "Khu vực 1",
       "positions": [
         {
           "id": "pos001",
@@ -33,7 +33,7 @@
     },
     {
       "id": "area002",
-      "name": "Area 2",
+      "name": "Khu vục 2",
       "positions": [
         {
           "id": "pos006",
@@ -59,6 +59,68 @@
           "id": "pos010",
           "name": "position 5",
           "description": "Position 5"
+        }
+      ]
+    },
+    {
+      "id": "area003",
+      "name": "Khu vục 3",
+      "positions": [
+        {
+          "id": "pos011",
+          "name": "position 11",
+          "description": "Position 11"
+        },
+        {
+          "id": "pos012",
+          "name": "position 12",
+          "description": "Position 12"
+        },
+        {
+          "id": "pos013",
+          "name": "position 13",
+          "description": "Position 13"
+        },
+        {
+          "id": "pos014",
+          "name": "position 4",
+          "description": "Position 14"
+        },
+        {
+          "id": "pos015",
+          "name": "position 5",
+          "description": "Position 15"
+        }
+      ]
+    },
+    {
+      "id": "area004",
+      "name": "Khu vục 4",
+      "positions": [
+        {
+          "id": "pos016",
+          "name": "position 16",
+          "description": "Position 16"
+        },
+        {
+          "id": "pos017",
+          "name": "position 17",
+          "description": "Position 17"
+        },
+        {
+          "id": "pos018",
+          "name": "position 18",
+          "description": "Position 18"
+        },
+        {
+          "id": "pos019",
+          "name": "position 9",
+          "description": "Position 19"
+        },
+        {
+          "id": "pos020",
+          "name": "position 20",
+          "description": "Position 20"
         }
       ]
     }

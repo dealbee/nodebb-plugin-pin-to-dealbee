@@ -40,5 +40,9 @@
     "alert-pin":"Chủ đề vừa được ghim",
     "alert-unpin-fail":"Bỏ ghim chủ đề thất bại",
     "alert-confirm":"Xác nhận",
-    "alert-confirm-meesage":"Thật sự muốn bỏ ghim bài viết này?"
+    "alert-confirm-meesage":"Thật sự muốn bỏ ghim bài viết này?",
+
+    "front-page-viewdetail": "Xem chi tiết",
+    "front-page-categories": "Chuyên mục",
+    "suggested-topics": "Có thể bạn quan tâm"
 }

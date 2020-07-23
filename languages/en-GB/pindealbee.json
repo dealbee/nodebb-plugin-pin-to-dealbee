@@ -39,6 +39,10 @@
     "alert-pin":"Topic pin",
     "alert-unpin-fail":"Unpin fail",
     "alert-confirm":"Confirmation",
-    "alert-confirm-meesage":"Do you want to unpin this topic?"
+    "alert-confirm-meesage":"Do you want to unpin this topic?",
+
+    "front-page-viewdetail": "View detail",
+    "front-page-categories": "Categories",
+    "suggested-topics": "Suggested topics"
 
 }

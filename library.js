@@ -129,6 +129,7 @@ plugin.init = function (params, callback) {
             res.status(400).send({message: "Fail to unpin"});
     })
     router.post('/pindealbee/preview/update-view', checkAdminAndModMiddleware, pagePreviewMiddleware, function (req, res) {
+
         params.app.render('pagePreview.tpl', {areas: req.positionData.areas}, function (err, html) {
             res.status(200).send(html);
         });
@@ -136,7 +137,14 @@ plugin.init = function (params, callback) {
     modulesSockets.getTopics = function (socket, data, callback) {
         console.log(data)
         let sort = {};
-        let match = {_key: {$regex: "topic:"}};
+        let match = {
+            $and:
+                [
+                    {_key: /^topic:/},
+                    {_key: {$not: {$regex: "tags"}}},
+                    {locked: {$ne: 1}}
+                ]
+        };
         let limit = data.limit;
         let skip = data.skip;
         //sort
@@ -215,6 +223,7 @@ plugin.init = function (params, callback) {
                 next(null, null)
             }
         ], function (err, res) {
+            console.log(topics)
             topics.map(e => {
                 if (!e.lastposttimeISOFormat)
                     e.lastposttimeISOFormat = moment.utc(e.lastposttimeISO).format('HH:mm DD-MM-YYYY')
@@ -227,7 +236,6 @@ plugin.init = function (params, callback) {
                 delete e.categoryKey;
                 return e;
             })
-            console.log(topics)
             params.app.render('pinPreview/dataContainer', {topics, total}, function (err, html) {
                 callback(err, html);
             });
@@ -240,38 +248,50 @@ plugin.init = function (params, callback) {
         // socket.broadcast.emit('unpin-post',data)
         socketIndex.server.sockets.emit('unpin-post', data);
     };
-    // modulesSockets.submitPin = function (socket, data, callback) {
-    // 	// plugin.db.sortedSetAdd('users:reputationnn', 200, "127.0.0.0.1"); //score value
-    // 	// plugin.db.sortedSetAdd('users:reputationnn', 200, "127.0.0.0.2");
-    // 	var obj = plugin.db.setObject(data.key, { tid: data.tid });
-    // 	callback(null, null);
-    // };
-    // modulesSockets.getTopicsToPin = function (socket, data, callback) {
-    // 	var sort = data.sort;
-    // 	var catgory = data.category;
-    // 	var name = data.name;
-    // 	var dataSort = plugin.topicData;
-    // 	// sort
-    // 	// Newest is default
-    // 	dataSort = dataSort.sort((a, b) => b.tid - a.tid);
-    // 	if (sort == 'oldest') { dataSort = dataSort.sort((a, b) => a.tid - b.tid); }
-    // 	if (sort == 'mostviewed') { dataSort = dataSort.sort((a, b) => b.viewcount - a.viewcount); }
-    // 	if (sort == 'mostliked') { dataSort = dataSort.sort((a, b) => b.upvotes - a.upvotes); }
-
-    // 	// category
-    // 	var dataFiltered = dataSort;
-    // 	if (catgory != '0') { dataFiltered = dataSort.filter(i => i.cid == catgory); }
-    // 	// name
-    // 	var dataFilterName = dataFiltered.filter(i => i.title.toLowerCase().includes(name.toLowerCase()));
-    // 	params.app.render('pinPreview/dataContainer', { topics: dataFilterName }, function (err, html) {
-    // 		console.log(err)
-    // 		console.log(html)
-    // 		callback(null, html);
-    // 	});
-    // };
     callback();
 };
+plugin.addListing = function (data, callback) {
+    data.routes.push({
+        route: 'front-page',
+        name: 'Dealbee Front Page'
+    });
+    callback(null, data);
+};
+plugin.serveFrontPage = async function (params) {
+    params.res.render('frontPage', {
+        template: {
+            name: 'frontPage'
+        },
+        topics: await plugin.getPinnedTiopics(),
+        categories: await plugin.getCategories()
+    });
+}
+plugin.defineWidgetAreas = function (areas, callback) {
+    areas = areas.concat([
+        {
+            'name': 'Dealbee Front Page Header',
+            'template': 'frontPage.tpl',
+            'location': 'hp-header'
+        },
+        {
+            'name': 'Dealbee Front Page Footer',
+            'template': 'frontPage.tpl',
+            'location': 'hp-footer'
+        },
+        {
+            'name': 'Dealbee Front Page Sidebar',
+            'template': 'frontPage.tpl',
+            'location': 'hp-sidebar'
+        },
+        {
+            'name': 'Dealbee Front Page Content',
+            'template': 'frontPage.tpl',
+            'location': 'hp-content'
+        }
+    ]);
 
+    callback(null, areas);
+};
 plugin.addAdminNavigation = function (header, callback) {
     header.plugins.push({
         route: '/plugins/pin-to-dealbee',
@@ -294,35 +314,6 @@ var pinPreviewMiddleware = async function (req, res, next) {
     plugin.topicData = querryDatas;
     next();
 };
-// var checkAdminAndModMiddleware = async function (req, res, next) {
-// 	req.isAdmin = await user.isAdministrator(req.uid);
-// 	req.isGlobalMod = await user.isGlobalModerator(req.uid);
-// 	req.isMod = false;
-// 	var topicIds = await plugin.db.client
-// 		.collection('objects')
-// 		.find({ _key: 'categories:cid' })
-// 		.toArray();
-// 	var topicQuerryKeys = topicIds.map(i => 'group:cid:' + i.value + ':privileges:moderate:members');
-// 	// console.log(topicIds);
-// 	var categoriesMod = await plugin.db.client
-// 		.collection('objects')
-// 		.find({ _key: { $in: topicQuerryKeys }, value: req.uid + '' })
-// 		.toArray();
-// 	var categoriesModKeys = categoriesMod.map(i => i._key.split(':')[2]);
-// 	// console.log(categoriesMod);
-// 	if (categoriesMod.length > 0) {
-// 		req.isMod = true;
-// 	}
-// 	req.modOfCids = categoriesModKeys;
-// 	if (req.isAdmin == true || req.isAdmin == true) {
-// 		req.modOfCids = topicIds.map(i => i.value);
-// 	}
-// 	if (req.isAdmin == req.isGlobalMod == req.isMod == false) {
-// 		return helper.notAllowed(req, res);
-// 	}
-// 	// console.log(req);
-// 	next();
-// };
 var checkAdminAndModMiddleware = async function (req, res, next) {
     req.isAdmin = await user.isAdministrator(req.uid);
     var topicIds = await plugin.db.client
@@ -401,9 +392,9 @@ plugin.privilegesListHuman = function (list, callback) {
 }
 plugin.canPinCids = async function (uid) {
     //Get groups data that have privilige to pin to dealbee
-    var groupsData = await plugin.db.client.collection('objects').find({_key: /privileges:groups:pindealbee:event:pin:members/}).toArray();
+    var groupsData = await plugin.db.client.collection('objects').find({_key: /privileges:groups:editor:event:canTakeNote:members/}).toArray();
     //Get users data that have privilige to pin to dealbee
-    var users = await plugin.db.client.collection('objects').find({_key: /privileges:pindealbee:event:pin:members/}).toArray();
+    var users = await plugin.db.client.collection('objects').find({_key: /privileges:editor:event:canTakeNote:members/}).toArray();
     //Get groups' name
     var groupNames = [];
     groupsData.forEach(e => groupNames.push(e.value));
@@ -428,5 +419,72 @@ plugin.asyncForEach = async function (array, callback) {
     for (let index = 0; index < array.length; index++) {
         await callback(array[index], index, array);
     }
+}
+plugin.getPinnedTiopics = async function () {
+    let topics = await plugin.db.client.collection('objects')
+        .aggregate([
+            {
+                $addFields: {
+                    topicKey: {
+                        $concat: ['topic:', {$toString: '$tid'}]
+                    }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'objects',
+                    localField: 'topicKey',
+                    foreignField: '_key',
+                    as: 'topic'
+                }
+            },
+            {
+                $unwind: '$topic'
+            },
+            {
+                $addFields: {
+                    categoryKey: {
+                        $concat: ['category:', {$toString: '$topic.cid'}]
+                    }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'objects',
+                    localField: 'categoryKey',
+                    foreignField: '_key',
+                    as: 'category'
+                }
+            },
+            {
+                $unwind: '$category'
+            },
+            {
+                $addFields: {
+                    categoryName: '$category.name'
+                }
+            },
+            {
+                $match: {_key: /^pindealbee/}
+            },
+            {
+                $sort: {
+                    _key: 1
+                }
+            }
+        ]).toArray()
+    topics.forEach(topic => {
+        topic.topic.currency = topic.topic.currency.split(' - ')[0];
+        if (topic.topic.price)
+            topic.topic.price = topic.topic.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (topic.topic.discountPrice)
+            topic.topic.discountPrice = topic.topic.discountPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    })
+    return topics;
+}
+plugin.getCategories = async function () {
+    let categories = await plugin.db.client.collection('objects').find({_key: /^category:/}).toArray();
+    categories = categories.sort((a, b) => a.name > b.name);
+    return categories;
 }
 module.exports = plugin;

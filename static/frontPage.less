@@ -1,0 +1,127 @@
+#deals-container > div {
+  padding: 10px;
+}
+
+#deals-container > div:hover {
+  box-shadow: 0px 0px 20px -4px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  border-radius: 10px;
+}
+
+#front-page-container {
+  .panel {
+    border: none;
+  }
+
+  .deal-discount-percentage {
+    position: absolute;
+    background-color: #e95c5a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 6px;
+  }
+
+  .img-cover {
+    width: 100%;
+    height: 150px;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .card-body {
+    .card-title {
+      height: 48px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      a {
+        color: #333333;
+      }
+
+      font-weight: 600;
+    }
+
+    .deal-category {
+      .deal-category-name {
+        font-weight: bold;
+        margin-bottom: 0px;
+
+        i {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .deal-price-container {
+      min-height: 60px;
+
+      .deal-price {
+        font-size: 14px;
+        text-decoration: line-through;
+        color: #e95c5a;
+      }
+
+      .deal-discount-price {
+        font-size: 25px;
+        font-weight: bold;
+        color: #337ab7;
+      }
+    }
+
+    .deal-stat {
+      .deal-vote, .deal-comment, .deal-view {
+        color: #666666;
+        margin-bottom: 10px;
+        display: flex;
+        float: left;
+        align-items: center;
+        margin-right: 5px;
+
+        i {
+          margin-right: 3px;
+        }
+      }
+    }
+
+    .view-deal-btn {
+      a {
+        text-transform: uppercase;
+        width: 100%;
+        font-weight: 600;
+      }
+    }
+
+  }
+}
+
+#front-page-container {
+  .category-title {
+    color: #666666;
+    font-weight: bold;
+  }
+
+  .category-row {
+    margin-bottom: 10px;
+
+    .category-icon {
+      height: 30px;
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      padding: 15px;
+      border-radius: 100px;
+    }
+
+    .category-name {
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+}

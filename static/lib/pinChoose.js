@@ -15,7 +15,7 @@ $(window).on('action:ajaxify.end', function (event, data) {
 		$.post(config.relative_path + '/pindealbee', {
 			option: "can-pin"
 		}).done(function (res) {
-			$('button#buttonPin').on('click', function (e) {
+			$('#buttonPin').on('click', function (e) {
 				var pinModal = $('#pinChoose');
 				if (!pinModal[0]) { // check if modal render or not
 					// Emit socket to render modal
