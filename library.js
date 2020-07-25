@@ -141,7 +141,7 @@ plugin.init = function (params, callback) {
             $and:
                 [
                     {_key: /^topic:/},
-                    {_key: {$not: {$regex: "tags"}}},
+                    {_key: {$not: /tags/}},
                     {locked: {$ne: 1}}
                 ]
         };
