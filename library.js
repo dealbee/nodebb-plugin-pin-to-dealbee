@@ -175,7 +175,7 @@ plugin.init = function (params, callback) {
                                     $toUpper: "$title"
                                 },
                                 categoryKey: {
-                                    $concat: ['category:', {$toString: '$cid'}]
+                                    $concat: ['category:', {$toLower: '$cid'}]
                                 }
                             }
                     },
@@ -200,7 +200,7 @@ plugin.init = function (params, callback) {
                                     $toUpper: "$title"
                                 },
                                 categoryKey: {
-                                    $concat: ['category:', {$toString: '$cid'}]
+                                    $concat: ['category:', {$toLower: '$cid'}]
                                 }
                             }
                     },
@@ -426,7 +426,7 @@ plugin.getPinnedTiopics = async function () {
             {
                 $addFields: {
                     topicKey: {
-                        $concat: ['topic:', {$toString: '$tid'}]
+                        $concat: ['topic:', {$toLower: '$tid'}]
                     }
                 }
             },
@@ -444,7 +444,7 @@ plugin.getPinnedTiopics = async function () {
             {
                 $addFields: {
                     categoryKey: {
-                        $concat: ['category:', {$toString: '$topic.cid'}]
+                        $concat: ['category:', {$toLower: '$topic.cid'}]
                     }
                 }
             },
