@@ -12,7 +12,7 @@
         </div>
         <div class="col-xs-10">
             <span class="category-name">
-                <a href="category/{{categories.slug}}" style="color: {{categories.bgColor}}">
+                <a href="category/{{categories.slug}}">
                     {{categories.name}}
                 </a>
             </span>

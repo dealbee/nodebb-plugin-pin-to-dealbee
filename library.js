@@ -493,6 +493,7 @@ plugin.getPinnedTiopics = async function () {
         ]).toArray()
     topics.forEach(topic => {
         topic.topic.currency = topic.topic.currency.split(' - ')[0];
+        topic.topic.postcount--;
         if (topic.topic.price)
             topic.topic.price = topic.topic.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         if (topic.topic.discountPrice)

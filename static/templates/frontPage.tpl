@@ -10,7 +10,7 @@
                 <!-- BEGIN topics -->
                 <div class="col-md-3 col-xs-4">
                     <div class="panel panel-default">
-                        <div class="card">
+                        <a class="card" href="topic/{{topics.topic.slug}}">
                             <!-- IF topics.topic.discountPercentage -->
                             <div class="deal-discount-percentage">
                                 -{{topics.topic.discountPercentage}}%
@@ -20,11 +20,15 @@
                                 <img src="{{topics.topic.thumb}}" class="card-img-top" alt="No thumb">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title"><a href="topic/{{topics.topic.slug}}">{{topics.topic.title}}</a>
+                                <h5 class="card-title">
+                                    <a href="topic/{{topics.topic.slug}}" title="{{topics.topic.title}}">
+                                        {{topics.topic.title}}
+                                    </a>
                                 </h5>
-                                <div>
+                                <div style="height: 115px; max-height: 115px">
                                     <div class="deal-category">
-                                        <a href="category/{{topics.category.slug}}" class="deal-category-name" style="color: {{topics.category.bgColor}}">
+                                        <a href="category/{{topics.category.slug}}" class="deal-category-name"
+                                           style="color: {{topics.category.bgColor}}">
                                             <i class="fa {{topics.category.icon}}"></i>
                                             {{topics.categoryName}}
                                         </a>
@@ -36,6 +40,10 @@
                                         <div class="deal-discount-price">
                                             {{topics.topic.discountPrice}} {{topics.topic.currency}}
                                         </div>
+                                    </div>
+                                    <div class="deal-coupon <!-- IF !topics.topic.coupon -->null<!-- ENDIF !topics.topic.coupon -->" title="[[pindealbee:coupon-title]]">
+                                        {{topics.topic.coupon}}
+                                        <!-- IF !topics.topic.coupon -->NULL<!-- ENDIF !topics.topic.coupon -->
                                     </div>
                                     <div class="deal-stat">
                                     <span class="deal-comment">
@@ -68,7 +76,7 @@
                                     <a href="topic/{{topics.topic.slug}}" class="btn btn-default">[[pindealbee:front-page-viewdetail]]</a>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <!-- END topics -->

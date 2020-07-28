@@ -15,7 +15,7 @@
 
   .deal-discount-percentage {
     position: absolute;
-    background-color: #e95c5a;
+    background-color: #EA2027;
     color: #fff;
     font-size: 12px;
     font-weight: bold;
@@ -45,7 +45,19 @@
 
       font-weight: 600;
     }
-
+    .deal-coupon {
+      height: 25px;
+      display: inline-block;
+      background-color: #337ab7;
+      border-radius: 5px;
+      padding: 3px 6px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 5px;
+    }
+    .deal-coupon.null{
+      opacity: 0;
+    }
     .deal-category {
       .deal-category-name {
         font-weight: bold;
@@ -63,7 +75,7 @@
       .deal-price {
         font-size: 14px;
         text-decoration: line-through;
-        color: #e95c5a;
+        color: #EA2027;
       }
 
       .deal-discount-price {
@@ -120,8 +132,9 @@
     }
 
     .category-name {
-      font-weight: bold;
-      font-size: 20px;
+      color: #666666;
+      font-weight: 600;
+      font-size: 15px;
     }
   }
 }
