@@ -129,22 +129,40 @@ plugin.init = function (params, callback) {
             res.status(400).send({message: "Fail to unpin"});
     })
     router.post('/pindealbee/preview/update-view', checkAdminAndModMiddleware, pagePreviewMiddleware, function (req, res) {
-
         params.app.render('pagePreview.tpl', {areas: req.positionData.areas}, function (err, html) {
             res.status(200).send(html);
         });
     })
     modulesSockets.getTopics = function (socket, data, callback) {
-        console.log(data)
         let sort = {};
-        let match = {
-            $and:
-                [
-                    {_key: /^topic:/},
-                    {_key: {$not: /tags/}},
-                    {locked: {$ne: 1}}
-                ]
-        };
+        let match = null;
+        if (data.nameOp) {
+            match = {
+                $and:
+                    [
+                        {
+                            $text: {
+                                $search: data.nameOp,
+                                $caseSensitive: false
+                            }
+                        },
+                        {_key: /^topic:/},
+                        {_key: {$not: /tags/}},
+                        {locked: {$ne: 1}},
+                        {deleted: {$ne: 1}}
+                    ]
+            };
+        } else {
+            match = {
+                $and:
+                    [
+                        {_key: /^topic:/},
+                        {_key: {$not: /tags/}},
+                        {locked: {$ne: 1}},
+                        {deleted: {$ne: 1}}
+                    ]
+            };
+        }
         let limit = data.limit;
         let skip = data.skip;
         //sort
@@ -157,23 +175,25 @@ plugin.init = function (params, callback) {
         } else {
             sort.timestamp = -1;
         }
-        //match
-        match.titleUpper = {$regex: data.nameOp.toUpperCase()};
         //cid
-        if (data.categoryOp != '0') {
-            match.cid = parseInt(data.categoryOp);
+        if (data.categoryOp !== '0') {
+            match.$and.push({
+                $or:
+                    [
+                        {cid: parseInt(data.categoryOp)},
+                        {cid: data.categoryOp},
+                    ]
+            })
         }
         let topics = [];
         let total = 0;
         async.waterfall([
             async function (next) {
                 topics = await plugin.db.client.collection('objects').aggregate([
+                    {$match: match},
                     {
                         $addFields:
                             {
-                                titleUpper: {
-                                    $toUpper: "$title"
-                                },
                                 categoryKey: {
                                     $concat: ['category:', {$toLower: '$cid'}]
                                 }
@@ -187,7 +207,6 @@ plugin.init = function (params, callback) {
                             as: 'category'
                         }
                     },
-                    {$match: match},
                     {$sort: sort},
                     {$skip: skip},
                     {$limit: limit}
@@ -223,12 +242,11 @@ plugin.init = function (params, callback) {
                 next(null, null)
             }
         ], function (err, res) {
-            console.log(topics)
             topics.map(e => {
                 if (!e.lastposttimeISOFormat)
-                    e.lastposttimeISOFormat = moment.utc(e.lastposttimeISO).format('HH:mm DD-MM-YYYY')
+                    e.lastposttimeISOFormat = moment(e.lastposttime).format('HH:mm DD-MM-YYYY')
                 if (!e.timestampISOFormat)
-                    e.timestampISOFormat = moment.utc(e.timestampISO).format('HH:mm DD-MM-YYYY')
+                    e.timestampISOFormat = moment(e.timestamp).format('HH:mm DD-MM-YYYY')
                 e.category = e.category[0];
                 if (!e.upvotes) {
                     e.upvotes = 0;

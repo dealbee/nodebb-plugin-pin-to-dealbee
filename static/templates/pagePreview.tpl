@@ -16,11 +16,16 @@
                 <div class="card-body">
                     <h5 class="position">{areas.positions.description}</h5>
                     <h5 class="card-title">
-                        <a href="/topic/{areas.positions.topicData.tid}" target="_blank">
+                        <a href="/topic/{areas.positions.topicData.tid}" target="_blank" title="{areas.positions.topicData.title}">
                             {areas.positions.topicData.title}
                         </a>
                     </h5>
                     <h6 class="category-name">[[pindealbee:pagepreview-category]]: {areas.positions.topicData.category.name}</h6>
+                    <div class="thumb-container">
+                        <!-- IF areas.positions.topicData.thumb -->
+                        <img src="{areas.positions.topicData.thumb}" alt="image">
+                        <!-- ENDIF areas.positions.topicData.thumb -->
+                    </div>
                 </div>
             </div>
             <!-- ENDIF areas.positions.topicData -->
@@ -34,6 +39,9 @@
                     <h5 class="position">{areas.positions.description}</h5>
                     <h5 class="card-title">[[pindealbee:pagepreview-empty]]</h5>
                     <h6 class="category-name">[[pindealbee:pagepreview-nocontent]]</h6>
+                    <div class="thumb-container">
+
+                    </div>
                 </div>
             </div>
             <!-- ENDIF !areas.positions.topicData -->

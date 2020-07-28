@@ -6,28 +6,28 @@
       "positions": [
         {
           "id": "pos001",
-          "name": "position 1",
-          "description": "Position 1"
+          "name": "Vị trí 1",
+          "description": "Vị trí 1"
         },
         {
           "id": "pos002",
-          "name": "position 2",
-          "description": "Position 2"
+          "name": "Vị trí 2",
+          "description": "Vị trí 2"
         },
         {
           "id": "pos003",
-          "name": "position 3",
-          "description": "Position 3"
+          "name": "Vị trí 3",
+          "description": "Vị trí 3"
         },
         {
           "id": "pos004",
-          "name": "position 4",
-          "description": "Position 4"
+          "name": "Vị trí 4",
+          "description": "Vị trí 4"
         },
         {
           "id": "pos005",
-          "name": "position 5",
-          "description": "Position 5"
+          "name": "Vị trí 5",
+          "description": "Vị trí 5"
         }
       ]
     },
@@ -37,28 +37,28 @@
       "positions": [
         {
           "id": "pos006",
-          "name": "position 1",
-          "description": "Position 1"
+          "name": "Vị trí 6",
+          "description": "Vị trí 6"
         },
         {
           "id": "pos007",
-          "name": "position 2",
-          "description": "Position 2"
+          "name": "Vị trí 7",
+          "description": "Vị trí 7"
         },
         {
           "id": "pos008",
-          "name": "position 3",
-          "description": "Position 3"
+          "name": "Vị trí 8",
+          "description": "Vị trí 8"
         },
         {
           "id": "pos009",
-          "name": "position 4",
-          "description": "Position 4"
+          "name": "Vị trí 9",
+          "description": "Vị trí 9"
         },
         {
           "id": "pos010",
-          "name": "position 5",
-          "description": "Position 5"
+          "name": "Vị trí 10",
+          "description": "Vị trí 10"
         }
       ]
     },
@@ -68,28 +68,28 @@
       "positions": [
         {
           "id": "pos011",
-          "name": "position 11",
-          "description": "Position 11"
+          "name": "Vị trí 11",
+          "description": "Vị trí 11"
         },
         {
           "id": "pos012",
-          "name": "position 12",
-          "description": "Position 12"
+          "name": "Vị trí 12",
+          "description": "Vị trí 12"
         },
         {
           "id": "pos013",
-          "name": "position 13",
-          "description": "Position 13"
+          "name": "Vị trí 13",
+          "description": "Vị trí 13"
         },
         {
           "id": "pos014",
-          "name": "position 4",
-          "description": "Position 14"
+          "name": "Vị trí 14",
+          "description": "Vị trí 14"
         },
         {
           "id": "pos015",
-          "name": "position 5",
-          "description": "Position 15"
+          "name": "Vị trí 15",
+          "description": "Vị trí 15"
         }
       ]
     },
@@ -99,28 +99,28 @@
       "positions": [
         {
           "id": "pos016",
-          "name": "position 16",
-          "description": "Position 16"
+          "name": "Vị trí 16",
+          "description": "Vị trí 16"
         },
         {
           "id": "pos017",
-          "name": "position 17",
-          "description": "Position 17"
+          "name": "Vị trí 17",
+          "description": "Vị trí 17"
         },
         {
           "id": "pos018",
-          "name": "position 18",
-          "description": "Position 18"
+          "name": "Vị trí 18",
+          "description": "Vị trí 18"
         },
         {
           "id": "pos019",
-          "name": "position 9",
-          "description": "Position 19"
+          "name": "Vị trí 9",
+          "description": "Vị trí 19"
         },
         {
           "id": "pos020",
-          "name": "position 20",
-          "description": "Position 20"
+          "name": "Vị trí 20",
+          "description": "Vị trí 20"
         }
       ]
     }
