@@ -134,61 +134,70 @@ plugin.init = function (params, callback) {
         });
     })
     modulesSockets.getTopics = function (socket, data, callback) {
-        let sort = {};
-        let match = null;
-        if (data.nameOp) {
-            match = {
-                $and:
-                    [
-                        {
-                            $text: {
-                                $search: data.nameOp,
-                                $caseSensitive: false
-                            }
-                        },
-                        {_key: /^topic:/},
-                        {_key: {$not: /tags/}},
-                        {locked: {$ne: 1}},
-                        {deleted: {$ne: 1}}
-                    ]
-            };
-        } else {
-            match = {
-                $and:
-                    [
-                        {_key: /^topic:/},
-                        {_key: {$not: /tags/}},
-                        {locked: {$ne: 1}},
-                        {deleted: {$ne: 1}}
-                    ]
-            };
-        }
-        let limit = data.limit;
-        let skip = data.skip;
-        //sort
-        if (data.sortedOp === 'oldest') {
-            sort.timestamp = 1;
-        } else if (data.sortedOp === 'mostviewed') {
-            sort.viewcount = -1;
-        } else if (data.sortedOp === 'mostliked') {
-            sort.upvotes = -1;
-        } else {
-            sort.timestamp = -1;
-        }
-        //cid
-        if (data.categoryOp !== '0') {
-            match.$and.push({
-                $or:
-                    [
-                        {cid: parseInt(data.categoryOp)},
-                        {cid: data.categoryOp},
-                    ]
-            })
-        }
         let topics = [];
         let total = 0;
         async.waterfall([
             async function (next) {
+                let sort = {};
+                let match = null;
+                let isAdmin = await user.isAdministrator(socket.uid)
+                let keyTopic ={};
+                if (isAdmin){
+                    keyTopic = {_key: /^topic:/}
+                }else{
+                    let canPinCid = await plugin.canPinCids(socket.uid);
+                    canPinCid = [...canPinCid, ... canPinCid.map(e=>parseInt(e))]
+                    keyTopic = {_key: /^topic:/, cid: {$in: canPinCid}}
+                }
+                if (data.nameOp) {
+                    match = {
+                        $and:
+                            [
+                                {
+                                    $text: {
+                                        $search: data.nameOp,
+                                        $caseSensitive: false
+                                    }
+                                },
+                                {... keyTopic},
+                                {_key: {$not: /tags/}},
+                                {locked: {$ne: 1}},
+                                {deleted: {$ne: 1}}
+                            ]
+                    };
+                } else {
+                    match = {
+                        $and:
+                            [
+                                {... keyTopic},
+                                {_key: {$not: /tags/}},
+                                {locked: {$ne: 1}},
+                                {deleted: {$ne: 1}}
+                            ]
+                    };
+                }
+                let limit = data.limit;
+                let skip = data.skip;
+                //sort
+                if (data.sortedOp === 'oldest') {
+                    sort.timestamp = 1;
+                } else if (data.sortedOp === 'mostviewed') {
+                    sort.viewcount = -1;
+                } else if (data.sortedOp === 'mostliked') {
+                    sort.upvotes = -1;
+                } else {
+                    sort.timestamp = -1;
+                }
+                //cid
+                if (data.categoryOp !== '0') {
+                    match.$and.push({
+                        $or:
+                            [
+                                {cid: parseInt(data.categoryOp)},
+                                {cid: data.categoryOp},
+                            ]
+                    })
+                }
                 topics = await plugin.db.client.collection('objects').aggregate([
                     {$match: match},
                     {
@@ -410,26 +419,33 @@ plugin.privilegesListHuman = function (list, callback) {
 }
 plugin.canPinCids = async function (uid) {
     //Get groups data that have privilige to pin to dealbee
-    var groupsData = await plugin.db.client.collection('objects').find({_key: /privileges:groups:editor:event:canTakeNote:members/}).toArray();
+    let groupsData = await plugin.db.client.collection('objects').find({_key: /privileges:groups:pindealbee:event:pin:members/}).toArray();
     //Get users data that have privilige to pin to dealbee
-    var users = await plugin.db.client.collection('objects').find({_key: /privileges:editor:event:canTakeNote:members/}).toArray();
+    let users = await plugin.db.client.collection('objects').find({_key: /privileges:pindealbee:event:pin:members/}).toArray();
     //Get groups' name
-    var groupNames = [];
+    let groupNames = [];
     groupsData.forEach(e => groupNames.push(e.value));
     //Get array of boolean determining user is in group
-    var usersInGroup = await groups.isMemberOfGroups(uid, groupNames)
-    var privilegeId = [];
+    let usersInGroup = await groups.isMemberOfGroups(uid, groupNames)
+    let privilegeId = [];
     groupsData.forEach((e, i) => {
-        if (usersInGroup[i] == true) {
+        if (usersInGroup[i] === true) {
             privilegeId.push(e._key);
         }
     })
     users.forEach(e => {
-        if (e.value == uid.toString()) {
+        if (e.value === uid.toString()) {
             privilegeId.push(e._key);
         }
     })
-    var cids = privilegeId.map(e => e = e.split(":")[2]);
+    let cids = privilegeId.map(e => e = e.split(":")[2]);
+    let categories = await plugin.db.client.collection('objects').find({_key: /^category:/}).toArray();
+    await plugin.asyncForEach(categories, async (category, i)=>{
+        let isMod  = await user.isModerator(uid, category.cid);
+        if (isMod){
+            cids.push(category.cid.toString())
+        }
+    })
     cids = [...new Set(cids)];
     return cids;
 }
