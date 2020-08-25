@@ -52,8 +52,8 @@ $(window).on('action:ajaxify.end', function (event, data) {
 												.done(function (res) {
 													app.alert({
 														type: 'success',
-														title: '<i class="fa fa-1x fa-thumb-tack"></i> Pin successfully',
-														message: 'This post has been pinned on Dealbee',
+														title: '<i class="fa fa-1x fa-thumb-tack"></i> [[pindealbee:alert-pin-successfully]]',
+														message: '[[pindealbee:alert-pin-successfully-message]]',
 														timeout: 5000
 													});
 													socket.emit('modules.pindealbeePin',

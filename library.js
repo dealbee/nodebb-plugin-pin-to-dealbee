@@ -323,7 +323,7 @@ plugin.addAdminNavigation = function (header, callback) {
     header.plugins.push({
         route: '/plugins/pin-to-dealbee',
         icon: 'fa-tint',
-        name: 'Pin to dealbee',
+        name: '[[pindealbee:pin-to-dealbee]]',
     });
 
     callback(null, header);
@@ -414,7 +414,7 @@ plugin.privilegesGroupsList = function (list, callback) {
 
 plugin.privilegesListHuman = function (list, callback) {
     callback(null, [...list, {
-        name: 'Pin to dealbee'
+        name: '[[pindealbee:pin-to-dealbee]]'
     }]);
 }
 plugin.canPinCids = async function (uid) {
